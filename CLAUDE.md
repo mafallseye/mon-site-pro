@@ -30,15 +30,19 @@ Accueil, Services, Réalisations (+ page détail), Process, Tarifs et devis,
 - npm run build : build de production
 
 
-Lis CLAUDE.md. Avant d'écrire du code, propose-moi un plan en étapes pour
-construire ce site. Pour chaque étape, indique les fichiers créés ou modifiés.
 
-Ensuite, quand je valide, fais seulement l'étape 1 :
-- installe et configure Tailwind CSS et @nuxtjs/i18n (fr par défaut)
-- crée un layout par défaut avec header (logo, navigation, bouton
-  "Demander un devis") et footer (liens, mentions légales, contact)
-- crée les pages vides avec leur titre et leur SEO de base
-- le design doit être sobre et professionnel, avec une couleur principale
-  facile à changer dans tailwind.config
 
-Ne fais rien d'autre. Lance npm run build à la fin pour vérifier qu'il n'y a pas d'erreur.
+## Identité
+- Marque : DIGISERVICE
+- Accroche : « Des sites web qui travaillent pour votre entreprise. »
+- Sous-titre : « Sites vitrines, e-commerce et applications web sur mesure. »
+- Couleurs (à déclarer dans tailwind.config) :
+  primary #0B1F3A, primary-light #16345C, accent #F59E0B,
+  surface #F4F7FB, ink #1F2937
+- Style : sobre, professionnel, beaucoup d'espace, boutons d'action en accent
+
+## Logo
+- Fichiers dans /public : logo.svg (fond clair), logo-light.svg (fond sombre), favicon.svg
+- Header : logo.svg ; footer sombre : logo-light.svg
+- Déclarer favicon.svg dans nuxt.config (app.head.link)
+

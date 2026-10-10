@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "name": "DIGISERVICE",
+    "tagline": "Des sites web qui travaillent pour votre entreprise.",
+    "subtitle": "Sites vitrines, e-commerce et applications web sur mesure."
+  },
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "portfolio": "Réalisations",
+    "process": "Process",
+    "about": "À propos",
+    "contact": "Contact",
+    "quote": "Demander un devis",
+    "skipToContent": "Aller au contenu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "rights": "Tous droits réservés."
+  },
+  "pages": {
+    "home": { "title": "Accueil", "description": "Des sites web professionnels pour développer votre activité au Sénégal et à l’international." },
+    "services": { "title": "Services", "description": "Découvrez nos services de création de sites vitrines, e-commerce, applications web et maintenance." },
+    "portfolio": { "title": "Réalisations", "description": "Découvrez une sélection de projets web conçus pour répondre aux besoins de nos clients." },
+    "project": { "title": "Réalisation", "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE." },
+    "process": { "title": "Notre processus", "description": "Découvrez les étapes de création de votre site web, de la découverte au lancement." },
+    "quote": { "title": "Tarifs et devis", "description": "Parlons de votre projet web et obtenez une proposition adaptée à vos besoins." },
+    "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
+    "contact": { "title": "Contact", "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application." },
+    "legal": { "title": "Mentions légales", "description": "Consultez les mentions légales du site DIGISERVICE." },
+    "privacy": { "title": "Politique de confidentialité", "description": "Consultez la politique de confidentialité et le traitement des données de DIGISERVICE." }
+  }
+}

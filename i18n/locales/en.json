@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "name": "DIGISERVICE",
+    "tagline": "Websites that work for your business.",
+    "subtitle": "Custom brochure websites, e-commerce stores and web applications."
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "process": "Process",
+    "about": "About",
+    "contact": "Contact",
+    "quote": "Request a quote",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy",
+    "rights": "All rights reserved."
+  },
+  "pages": {
+    "home": { "title": "Home", "description": "Professional websites to grow your business in Senegal and internationally." },
+    "services": { "title": "Services", "description": "Explore our brochure website, e-commerce, web application and maintenance services." },
+    "portfolio": { "title": "Portfolio", "description": "Explore a selection of web projects designed to meet our clients’ needs." },
+    "project": { "title": "Project", "description": "Discover the details of this web project by DIGISERVICE." },
+    "process": { "title": "Our process", "description": "Discover the steps involved in creating your website, from discovery to launch." },
+    "quote": { "title": "Pricing and quote", "description": "Tell us about your web project and get a proposal tailored to your needs." },
+    "about": { "title": "About", "description": "Learn about DIGISERVICE and our approach to custom web development." },
+    "contact": { "title": "Contact", "description": "Contact DIGISERVICE to discuss your website or application project." },
+    "legal": { "title": "Legal notice", "description": "Read the legal notice for the DIGISERVICE website." },
+    "privacy": { "title": "Privacy policy", "description": "Read DIGISERVICE’s privacy policy and data processing practices." }
+  }
+}
