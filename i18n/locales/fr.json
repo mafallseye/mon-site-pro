@@ -67,9 +67,55 @@
       "description": "Découvrez les étapes de création de votre site web, de la découverte au lancement.",
       "intro": "Un accompagnement structuré, avec des échanges aux moments clés du projet."
     },
-    "quote": { "title": "Tarifs et devis", "description": "Parlons de votre projet web et obtenez une proposition adaptée à vos besoins." },
+    "quote": {
+      "title": "Tarifs et devis",
+      "description": "Parlons de votre projet web et obtenez une proposition adaptée à vos besoins.",
+      "intro": "Décrivez votre besoin pour recevoir une proposition adaptée au périmètre de votre projet.",
+      "priceTitle": "Repères de budget",
+      "priceIntro": "Valeurs d'exemple à remplacer et à confirmer selon le périmètre de chaque projet.",
+      "startingAt": "À partir de",
+      "disclaimer": "Ces montants sont des exemples indicatifs, pas un devis. Le budget définitif dépend du périmètre convenu.",
+      "formTitle": "Demander un devis",
+      "formIntro": "Les champs marqués d'un astérisque sont obligatoires.",
+      "name": "Nom",
+      "email": "Adresse e-mail",
+      "company": "Entreprise",
+      "companyOptional": "facultatif",
+      "projectType": "Type de projet",
+      "budget": "Budget approximatif",
+      "deadline": "Délai souhaité",
+      "description": "Description du projet",
+      "descriptionLabel": "Décrivez votre projet",
+      "consentBefore": "J'accepte que mes données soient utilisées pour répondre à ma demande. Consultez la",
+      "consentLink": "politique de confidentialité",
+      "consentAfter": ".",
+      "submit": "Envoyer ma demande",
+      "sending": "Envoi en cours…",
+      "success": "Votre demande a bien été envoyée. Merci, nous reviendrons vers vous.",
+      "placeholderName": "Votre nom",
+      "placeholderEmail": "vous{'@'}exemple.com",
+      "placeholderCompany": "Nom de votre entreprise",
+      "placeholderDeadline": "Ex. : dans les prochains mois, date à préciser",
+      "placeholderDescription": "Présentez votre activité, votre besoin et les fonctionnalités ou contenus envisagés."
+    },
     "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
-    "contact": { "title": "Contact", "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application." },
+    "contact": {
+      "title": "Contact",
+      "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application.",
+      "intro": "Une question ou une idée de projet ? Envoyez-moi un message.",
+      "formTitle": "Écrire un message",
+      "name": "Nom",
+      "email": "Adresse e-mail",
+      "message": "Message",
+      "placeholderName": "Votre nom",
+      "placeholderEmail": "vous{'@'}exemple.com",
+      "placeholderMessage": "Comment puis-je vous aider ?",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours…",
+      "success": "Votre message a bien été envoyé. Merci, je vous répondrai dès que possible.",
+      "detailsTitle": "Mes coordonnées",
+      "missingDetails": "Les coordonnées directes ne sont pas encore configurées. Vous pouvez utiliser le formulaire pour me joindre."
+    },
     "legal": { "title": "Mentions légales", "description": "Consultez les mentions légales du site DIGISERVICE." },
     "privacy": { "title": "Politique de confidentialité", "description": "Consultez la politique de confidentialité et le traitement des données de DIGISERVICE." }
   },
@@ -116,6 +162,43 @@
     "learnMore": "En savoir plus",
     "backToProjects": "Retour aux réalisations"
   },
+  "forms": {
+    "required": "Champ obligatoire.",
+    "errors": {
+      "required": "Veuillez renseigner ce champ.",
+      "email": "Veuillez saisir une adresse e-mail valide.",
+      "invalid": "Veuillez vérifier la valeur saisie.",
+      "tooShort": "Votre réponse est trop courte.",
+      "rateLimited": "Trop de demandes ont été envoyées. Réessayez dans quelques minutes.",
+      "unavailable": "Le service d'envoi est momentanément indisponible. Réessayez plus tard.",
+      "sendFailed": "L'envoi a échoué. Vérifiez votre connexion et réessayez.",
+      "generic": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "projectTypes": {
+      "choose": "Choisir un type de projet",
+      "siteVitrine": "Site vitrine",
+      "ecommerce": "E-commerce",
+      "webApp": "Application web",
+      "maintenance": "Maintenance",
+      "other": "Autre"
+    },
+    "budgets": {
+      "choose": "Choisir une fourchette",
+      "less250k": "Moins de 250 000 FCFA",
+      "250to500k": "250 000 à 500 000 FCFA",
+      "500kto1m": "500 000 à 1 000 000 FCFA",
+      "1to2m": "1 000 000 à 2 000 000 FCFA",
+      "over2m": "Plus de 2 000 000 FCFA",
+      "undecided": "Budget à définir"
+    },
+    "honeypotLabel": "Laissez ce champ vide"
+  },
+  "quoteStartingPrices": [
+    { "service": "Site vitrine", "amount": "250 000 FCFA" },
+    { "service": "E-commerce", "amount": "500 000 FCFA" },
+    { "service": "Application web sur mesure", "amount": "750 000 FCFA" },
+    { "service": "Maintenance", "amount": "50 000 FCFA" }
+  ],
   "footer": {
     "navigation": "Navigation",
     "contact": "Contact",

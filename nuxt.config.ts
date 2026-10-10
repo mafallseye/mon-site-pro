@@ -10,6 +10,13 @@ export default defineNuxtConfig({
       sqliteConnector: 'native'
     }
   },
+  runtimeConfig: {
+    public: {
+      contactEmail: '',
+      contactPhone: '',
+      contactLocation: ''
+    }
+  },
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [tailwindcss()]
