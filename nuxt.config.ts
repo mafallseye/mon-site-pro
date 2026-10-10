@@ -4,7 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n'],
+  modules: ['@nuxt/content', '@nuxtjs/i18n'],
+  content: {
+    experimental: {
+      sqliteConnector: 'native'
+    }
+  },
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [tailwindcss()]
@@ -12,6 +17,7 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'fr',
     strategy: 'prefix_except_default',
+    detectBrowserLanguage: false,
     locales: [
       { code: 'fr', language: 'fr-FR', file: 'fr.json', name: 'Français' },
       { code: 'en', language: 'en-US', file: 'en.json', name: 'English' }

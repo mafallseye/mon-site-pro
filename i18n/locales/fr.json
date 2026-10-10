@@ -16,23 +16,111 @@
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu"
   },
+  "pages": {
+    "home": {
+      "title": "Accueil",
+      "description": "Des sites web professionnels pour développer votre activité au Sénégal et à l’international.",
+      "heroTitle": "Des sites web qui travaillent pour votre entreprise.",
+      "heroSubtitle": "Sites vitrines, e-commerce et applications web sur mesure.",
+      "seeProjects": "Voir mes réalisations",
+      "proof": "Plus de 2 ans de collaboration avec des missions économiques Europe - Afrique de l'Ouest.",
+      "servicesTitle": "Des solutions web adaptées à vos besoins",
+      "servicesIntro": "De la présence en ligne à l'outil métier, construisons la solution qui vous convient.",
+      "featuredTitle": "Quelques réalisations",
+      "featuredIntro": "Des projets conçus et développés en collaboration avec leurs clients.",
+      "processTitle": "Un accompagnement à chaque étape",
+      "processIntro": "Un processus clair, de la première conversation à la mise en ligne.",
+      "ctaTitle": "Parlons de votre projet",
+      "ctaText": "Décrivez votre besoin et échangeons sur une solution adaptée.",
+      "ctaButton": "Demander un devis"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Découvrez nos services de création de sites vitrines, e-commerce, applications web et maintenance.",
+      "intro": "Des solutions web pensées selon vos objectifs, votre activité et vos utilisateurs.",
+      "forLabel": "Pour qui",
+      "includesLabel": "Ce qui est inclus",
+      "maintenanceTitle": "Maintenance et hébergement",
+      "maintenanceIntro": "Une option pour garder votre site suivi et à jour après sa mise en ligne.",
+      "maintenanceAudience": "Pour les entreprises qui souhaitent déléguer le suivi courant de leur site.",
+      "maintenanceIncludes": "Mises à jour de contenu et suivi technique, selon les besoins convenus.",
+      "maintenanceExperience": "J'assure déjà la maintenance de sites clients, notamment Ikonik : mises à jour de contenu et suivi technique.",
+      "quoteCta": "Demander un devis pour cette offre"
+    },
+    "portfolio": {
+      "title": "Réalisations",
+      "description": "Découvrez une sélection de projets web conçus pour répondre aux besoins de nos clients.",
+      "intro": "Quelques projets réalisés en collaboration avec les entreprises et organisations qui les portent.",
+      "viewProject": "Voir le projet",
+      "visitWebsite": "Visiter le site",
+      "clientLabel": "Client",
+      "sectorLabel": "Secteur",
+      "technologyLabel": "Technologies",
+      "imagePlaceholder": "Emplacement réservé à une image du projet"
+    },
+    "project": {
+      "title": "Réalisation",
+      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE."
+    },
+    "process": {
+      "title": "Notre processus",
+      "description": "Découvrez les étapes de création de votre site web, de la découverte au lancement.",
+      "intro": "Un accompagnement structuré, avec des échanges aux moments clés du projet."
+    },
+    "quote": { "title": "Tarifs et devis", "description": "Parlons de votre projet web et obtenez une proposition adaptée à vos besoins." },
+    "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
+    "contact": { "title": "Contact", "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application." },
+    "legal": { "title": "Mentions légales", "description": "Consultez les mentions légales du site DIGISERVICE." },
+    "privacy": { "title": "Politique de confidentialité", "description": "Consultez la politique de confidentialité et le traitement des données de DIGISERVICE." }
+  },
+  "servicesList": [
+    {
+      "title": "Site vitrine",
+      "summary": "Présentez votre activité avec un site professionnel, clair et facile à parcourir.",
+      "audience": "Indépendants, associations et entreprises qui souhaitent présenter leurs services en ligne.",
+      "includes": ["Périmètre et livrables définis selon votre besoin", "Prestations précisées dans le devis avant démarrage"]
+    },
+    {
+      "title": "E-commerce",
+      "summary": "Proposez vos produits ou services à l'achat grâce à une boutique en ligne.",
+      "audience": "Entreprises qui souhaitent présenter et vendre leurs produits en ligne.",
+      "includes": ["Fonctionnalités et périmètre de la boutique définis selon votre besoin", "Prestations précisées dans le devis avant démarrage"]
+    },
+    {
+      "title": "Application web sur mesure",
+      "summary": "Un outil web conçu autour d'un besoin métier ou d'un service spécifique.",
+      "audience": "Organisations ayant un processus ou un service à proposer sous forme d'outil web.",
+      "includes": ["Périmètre fonctionnel défini selon votre besoin", "Fonctionnalités et livrables précisés dans le devis avant démarrage"]
+    }
+  ],
+  "homeServices": [
+    { "title": "Site vitrine", "text": "Présentez votre activité et vos services avec un site professionnel et responsive." },
+    { "title": "E-commerce", "text": "Faites découvrir vos produits et proposez leur vente en ligne." },
+    { "title": "Application web", "text": "Faites réaliser un outil web adapté à vos besoins et à vos utilisateurs." }
+  ],
+  "homeProcess": [
+    { "title": "Brief", "text": "Nous échangeons sur votre activité, vos besoins et vos objectifs." },
+    { "title": "Devis et cadrage", "text": "Le périmètre et les modalités du projet sont précisés avant de démarrer." },
+    { "title": "Développement", "text": "La solution est conçue et développée avec des points d'échange réguliers." },
+    { "title": "Livraison et suivi", "text": "Le site est mis en ligne puis un suivi peut être convenu selon vos besoins." }
+  ],
+  "processSteps": [
+    { "title": "Brief", "text": "Nous échangeons pour comprendre votre activité, vos utilisateurs, vos objectifs et vos besoins." },
+    { "title": "Devis", "text": "Vous recevez une proposition qui précise le périmètre, les livrables et les modalités du projet." },
+    { "title": "Développement", "text": "La solution est conçue puis développée, avec des échanges aux étapes importantes." },
+    { "title": "Livraison", "text": "Le site ou l'application est vérifié puis mis en ligne selon le périmètre convenu." },
+    { "title": "Suivi", "text": "Après livraison, un accompagnement ou une maintenance peut être défini selon vos besoins." }
+  ],
+  "common": {
+    "requestQuote": "Demander un devis",
+    "learnMore": "En savoir plus",
+    "backToProjects": "Retour aux réalisations"
+  },
   "footer": {
     "navigation": "Navigation",
     "contact": "Contact",
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité",
     "rights": "Tous droits réservés."
-  },
-  "pages": {
-    "home": { "title": "Accueil", "description": "Des sites web professionnels pour développer votre activité au Sénégal et à l’international." },
-    "services": { "title": "Services", "description": "Découvrez nos services de création de sites vitrines, e-commerce, applications web et maintenance." },
-    "portfolio": { "title": "Réalisations", "description": "Découvrez une sélection de projets web conçus pour répondre aux besoins de nos clients." },
-    "project": { "title": "Réalisation", "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE." },
-    "process": { "title": "Notre processus", "description": "Découvrez les étapes de création de votre site web, de la découverte au lancement." },
-    "quote": { "title": "Tarifs et devis", "description": "Parlons de votre projet web et obtenez une proposition adaptée à vos besoins." },
-    "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
-    "contact": { "title": "Contact", "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application." },
-    "legal": { "title": "Mentions légales", "description": "Consultez les mentions légales du site DIGISERVICE." },
-    "privacy": { "title": "Politique de confidentialité", "description": "Consultez la politique de confidentialité et le traitement des données de DIGISERVICE." }
   }
 }
