@@ -5,7 +5,10 @@ const steps = computed(() => [0, 1, 2, 3, 4].map(index => ({
 	text: t(`processSteps.${index}.text`)
 })))
 
-useSeoMeta({ title: () => `${t('pages.process.title')} | DIGISERVICE`, description: () => t('pages.process.description'), ogTitle: () => `${t('pages.process.title')} | DIGISERVICE`, ogDescription: () => t('pages.process.description'), ogImage: '/logo.svg' })
+usePageSeo(
+	() => `${t('pages.process.title')} | ${t('brand.name')}`,
+	() => t('pages.process.description')
+)
 </script>
 
 <template>

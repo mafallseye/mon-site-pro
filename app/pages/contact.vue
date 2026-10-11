@@ -8,7 +8,10 @@ const contactDetails = computed(() => ({
 }))
 const hasContactDetails = computed(() => Object.values(contactDetails.value).some(Boolean))
 
-useSeoMeta({ title: () => `${t('pages.contact.title')} | DIGISERVICE`, description: () => t('pages.contact.description'), ogTitle: () => `${t('pages.contact.title')} | DIGISERVICE`, ogDescription: () => t('pages.contact.description'), ogImage: '/logo.svg' })
+usePageSeo(
+	() => `${t('pages.contact.title')} | ${t('brand.name')}`,
+	() => t('pages.contact.description')
+)
 </script>
 
 <template>

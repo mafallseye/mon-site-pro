@@ -1,4 +1,6 @@
 import { quoteSchema } from '../../shared/utils/form-schemas'
+import { budgetOptions, projectTypeOptions } from '../../shared/utils/form-options'
+import fr from '../../i18n/locales/fr.json'
 import { enforceFormRateLimit, formErrorResponse, respondToHoneypot, sendFormEmail } from '../utils/form-submission'
 
 export default defineEventHandler(async (event) => {
@@ -33,21 +35,27 @@ export default defineEventHandler(async (event) => {
     }
 
     const payload = result.data
+    const projectTypeOption = projectTypeOptions.find(option => option.value === payload.projectType)!
+    const budgetOption = budgetOptions.find(option => option.value === payload.budget)!
+    const projectTypeLabel = fr.forms.projectTypes[projectTypeOption.messageKey]
+    const budgetLabel = fr.forms.budgets[budgetOption.messageKey]
+    const companySuffix = payload.company ? ` (${payload.company})` : ''
     const text = [
       'Nouvelle demande de devis',
       `Nom : ${payload.name}`,
       `Email : ${payload.email}`,
       `Entreprise : ${payload.company || 'Non renseignée'}`,
-      `Type de projet : ${payload.projectType}`,
-      `Budget approximatif : ${payload.budget}`,
+      `Type de projet : ${projectTypeLabel}`,
+      `Budget approximatif : ${budgetLabel}`,
       `Délai souhaité : ${payload.deadline}`,
       `Consentement : ${payload.consent ? 'Oui' : 'Non'}`,
+      `Langue : ${payload.language.toUpperCase()}`,
       '',
       'Description du projet :',
       payload.description
     ].join('\n')
 
-    await sendFormEmail(payload, 'Nouvelle demande de devis — DIGISERVICE', text)
+    await sendFormEmail(payload, `Devis : ${projectTypeLabel}, ${payload.name}${companySuffix}`, text)
     return { success: true }
   } catch (error) {
     return formErrorResponse(event, error)

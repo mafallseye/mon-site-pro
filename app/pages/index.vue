@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const { data: projects } = await useAsyncData('featured-realisations', () =>
-  queryCollection('realisations').where('featured', '=', true).limit(2).all()
+const { data: projects } = await useAsyncData(
+  () => `featured-realisations-${locale.value}`,
+  () => queryCollection('realisations').where('language', '=', locale.value).where('featured', '=', true).limit(2).all()
 )
 
 const homeServices = computed(() => [0, 1, 2].map(index => ({
@@ -17,12 +18,26 @@ const processSteps = computed(() => [0, 1, 2, 3].map(index => ({
   text: t(`homeProcess.${index}.text`)
 })))
 
-useSeoMeta({
-  title: () => `${t('pages.home.heroTitle')} | DIGISERVICE`,
-  description: () => t('pages.home.description'),
-  ogTitle: () => `${t('pages.home.heroTitle')} | DIGISERVICE`,
-  ogDescription: () => t('pages.home.description'),
-  ogImage: '/logo.svg'
+const { canonicalUrl, imageUrl } = usePageSeo(
+  () => `${t('pages.home.heroTitle')} | ${t('brand.name')}`,
+  () => t('pages.home.description')
+)
+
+useHead({
+  script: [{
+    key: 'professional-service-jsonld',
+    type: 'application/ld+json',
+    innerHTML: computed(() => JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: t('brand.name'),
+      description: t('pages.home.description'),
+      url: canonicalUrl.value,
+      logo: imageUrl.value,
+      serviceType: t('structuredData.serviceType'),
+      areaServed: t('structuredData.areaServed')
+    }))
+  }]
 })
 </script>
 
@@ -39,7 +54,7 @@ useSeoMeta({
         </div>
       </div>
       <div aria-hidden="true" class="flex min-h-64 items-center justify-center rounded-3xl bg-surface p-8 sm:min-h-80">
-        <img src="/logo.svg" alt="" class="max-h-24 w-auto opacity-90 sm:max-h-32">
+        <img src="/logo.svg" alt="" width="300" height="64" decoding="async" class="max-h-24 w-auto opacity-90 sm:max-h-32">
       </div>
     </div>
   </section>
@@ -74,7 +89,7 @@ useSeoMeta({
       </div>
       <div class="mt-9 grid gap-6 md:grid-cols-2">
         <article v-for="project in projects || []" :key="project.slug" class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-          <div class="flex aspect-[16/8] items-center justify-center bg-slate-100 px-6 text-center text-sm text-slate-500">{{ t('pages.portfolio.imagePlaceholder') }}</div>
+          <div class="flex aspect-[16/8] items-center justify-center bg-slate-100 px-6 text-center text-sm text-slate-600">{{ t('pages.portfolio.imagePlaceholder') }}</div>
           <div class="p-6">
             <p class="text-sm font-semibold text-primary-light">{{ project.sector }}</p>
             <h3 class="mt-2 text-2xl font-bold text-primary">{{ project.title }}</h3>

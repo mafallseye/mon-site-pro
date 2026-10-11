@@ -1,6 +1,7 @@
 ---
 title: Ikonik
 slug: ikonik-ink
+language: fr
 client: Ikonik
 sector: Galerie d’art contemporain
 technologies:

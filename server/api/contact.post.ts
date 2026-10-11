@@ -37,12 +37,13 @@ export default defineEventHandler(async (event) => {
       'Nouveau message de contact',
       `Nom : ${payload.name}`,
       `Email : ${payload.email}`,
+      `Langue : ${payload.language.toUpperCase()}`,
       '',
       'Message :',
       payload.message
     ].join('\n')
 
-    await sendFormEmail(payload, 'Nouveau message de contact — DIGISERVICE', text)
+    await sendFormEmail(payload, `Message de ${payload.name}`, text)
     return { success: true }
   } catch (error) {
     return formErrorResponse(event, error)

@@ -2,7 +2,7 @@
 import { contactSchema } from '../../shared/utils/form-schemas'
 import type { ContactPayload } from '../../shared/utils/form-schemas'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const form = reactive({ name: '', email: '', message: '', website: '' })
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const fieldErrors = reactive<Record<string, string>>({})
@@ -33,7 +33,7 @@ async function submitForm() {
   errorMessage.value = ''
   for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
 
-  const parsed = contactSchema.safeParse(form)
+  const parsed = contactSchema.safeParse({ ...form, language: locale.value })
   if (!parsed.success) {
     setValidationErrors(parsed.error.issues)
     status.value = 'error'

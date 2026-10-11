@@ -14,7 +14,14 @@
     "quote": "Demander un devis",
     "skipToContent": "Aller au contenu",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu"
+    "closeMenu": "Fermer le menu",
+    "mainLabel": "Navigation principale",
+    "mobileLabel": "Navigation mobile"
+  },
+  "languageSwitcher": {
+    "label": "Choisir une langue",
+    "french": "Passer le site en français",
+    "english": "Passer le site en anglais"
   },
   "pages": {
     "home": {
@@ -60,7 +67,8 @@
     },
     "project": {
       "title": "Réalisation",
-      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE."
+      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE.",
+      "notFound": "Réalisation introuvable."
     },
     "process": {
       "title": "Notre processus",
@@ -116,8 +124,44 @@
       "detailsTitle": "Mes coordonnées",
       "missingDetails": "Les coordonnées directes ne sont pas encore configurées. Vous pouvez utiliser le formulaire pour me joindre."
     },
-    "legal": { "title": "Mentions légales", "description": "Consultez les mentions légales du site DIGISERVICE." },
-    "privacy": { "title": "Politique de confidentialité", "description": "Consultez la politique de confidentialité et le traitement des données de DIGISERVICE." }
+    "legal": {
+      "title": "Mentions légales",
+      "description": "Informations sur l’éditeur, l’hébergement et la propriété intellectuelle du site DIGISERVICE.",
+      "intro": "Les informations entre crochets restent à compléter ou à confirmer avant la mise en ligne.",
+      "sections": [
+        { "title": "Éditeur du site", "text": "Nom légal : [À COMPLÉTER — nom et prénom ou dénomination sociale].\nNom commercial : DIGISERVICE.\nStatut juridique : [À COMPLÉTER — forme ou statut].\nAdresse du siège ou de l’activité : [À COMPLÉTER].\nNuméro d’immatriculation (RCCM, NINEA ou équivalent) : [À COMPLÉTER ou indiquer si non applicable].\nDirecteur ou directrice de la publication : [À COMPLÉTER].\nContact : [[contactEmail]]." },
+        { "title": "Hébergement", "text": "Hébergeur effectif : [À COMPLÉTER — nom de l’entreprise, adresse postale et coordonnées de contact].\nLe projet prévoit un déploiement sur Vercel, mais l’hébergement effectif et les coordonnées contractuelles restent à confirmer." },
+        { "title": "Propriété intellectuelle", "text": "Sauf mention contraire, les contenus originaux de ce site (textes, éléments graphiques et code) sont protégés par les règles applicables en matière de propriété intellectuelle. Toute reproduction ou réutilisation nécessite l’autorisation préalable du titulaire des droits. Les marques, contenus et projets de tiers restent la propriété de leurs titulaires respectifs." },
+        { "title": "Contact", "text": "Pour toute question concernant le site ou ces mentions, contactez l’éditeur à l’adresse suivante : [[contactEmail]]." }
+      ],
+      "missingEmail": "[À COMPLÉTER — adresse de contact]"
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "description": "Données recueillies par les formulaires DIGISERVICE, utilisation, conservation et droits des personnes.",
+      "intro": "Cette page décrit les traitements liés aux formulaires de contact et de demande de devis. Les éléments entre crochets sont à confirmer ou à compléter avant publication.",
+      "sections": [
+        { "title": "Responsable du traitement et contact", "text": "Responsable : [À COMPLÉTER — nom légal et statut de la personne ou structure responsable].\nAdresse : [À COMPLÉTER].\nPour toute demande relative à vos données, écrivez à [[contactEmail]]." },
+        { "title": "Données collectées", "text": "Le formulaire de contact recueille le nom, l’adresse e-mail et le message. Le formulaire de devis recueille le nom, l’adresse e-mail, éventuellement l’entreprise, le type de projet, la fourchette de budget, le délai souhaité, la description du projet et le consentement. Les requêtes sont également limitées par adresse IP à des fins de prévention des abus." },
+        { "title": "Finalités et transmission", "text": "Les données du formulaire servent à lire et traiter votre message ou votre demande de devis, puis à vous répondre. Elles sont transmises par e-mail au destinataire configuré pour le site au moyen du service d’envoi Resend. Les données ne sont pas enregistrées dans une base de données applicative par le code de ce site. Les journaux techniques éventuels de l’hébergeur et les modalités de traitement de Resend sont à vérifier dans leurs conditions et paramètres respectifs." },
+        { "title": "Base juridique", "text": "Base juridique applicable à chaque formulaire : [À COMPLÉTER — à confirmer au regard de la législation applicable]. Le formulaire de devis comporte une case de consentement destinée à l’utilisation des données pour répondre à la demande." },
+        { "title": "Durée de conservation", "text": "Messages et demandes reçus par e-mail : [À COMPLÉTER — définir une durée de conservation et une procédure de suppression]. Les horodatages conservés en mémoire pour limiter les envois sont filtrés sur une fenêtre de dix minutes lors d’une nouvelle requête de la même adresse IP. Les durées de conservation des journaux de l’hébergeur et de Resend restent à vérifier." },
+        { "title": "Droits des personnes", "text": "Sous réserve de la législation applicable, vous pouvez demander l’accès à vos données, leur rectification ou leur suppression, et exercer les autres droits qui vous sont reconnus (notamment opposition, limitation ou portabilité lorsque ces droits s’appliquent). Pour exercer vos droits ou poser une question, contactez [[contactEmail]]. Autorité de contrôle compétente et modalités de réclamation : [À COMPLÉTER selon la législation applicable]." },
+        { "title": "Cookies et mesure d’audience", "text": "Utilisation de cookies non essentiels ou d’outils de mesure d’audience : [À COMPLÉTER — confirmer les outils présents et leur configuration]." },
+        { "title": "Mise à jour", "text": "Date de dernière mise à jour : [À COMPLÉTER]. Cette politique devra être révisée si les formulaires, les prestataires ou les pratiques de traitement changent." }
+      ],
+      "missingEmail": "[À COMPLÉTER — adresse de contact]"
+    },
+    "notFound": {
+      "title": "Page introuvable",
+      "description": "La page demandée n’existe pas ou a été déplacée.",
+      "backHome": "Retour à l’accueil"
+    },
+    "error": {
+      "title": "Une erreur est survenue",
+      "description": "La page n’a pas pu être affichée. Réessayez ou revenez à l’accueil.",
+      "backHome": "Retour à l’accueil"
+    }
   },
   "servicesList": [
     {
@@ -199,6 +243,10 @@
     { "service": "Application web sur mesure", "amount": "750 000 FCFA" },
     { "service": "Maintenance", "amount": "50 000 FCFA" }
   ],
+  "structuredData": {
+    "serviceType": "Création de sites web et d’applications web",
+    "areaServed": "Sénégal et clientèle internationale"
+  },
   "footer": {
     "navigation": "Navigation",
     "contact": "Contact",

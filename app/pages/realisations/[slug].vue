@@ -1,24 +1,21 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
 const slug = computed(() => String(route.params.slug))
 const { data: project } = await useAsyncData(
-	() => `realisation-${slug.value}`,
-	() => queryCollection('realisations').where('slug', '=', slug.value).first()
+	() => `realisation-${locale.value}-${slug.value}`,
+	() => queryCollection('realisations').where('language', '=', locale.value).where('slug', '=', slug.value).first()
 )
 
 if (!project.value) {
-	throw createError({ statusCode: 404, statusMessage: 'Réalisation introuvable' })
+	throw createError({ statusCode: 404, statusMessage: t('pages.project.notFound') })
 }
 
-useSeoMeta({
-	title: () => `${project.value?.title || t('pages.project.title')} | DIGISERVICE`,
-	description: () => project.value?.summary || t('pages.project.description'),
-	ogTitle: () => `${project.value?.title || t('pages.project.title')} | DIGISERVICE`,
-	ogDescription: () => project.value?.summary || t('pages.project.description'),
-	ogImage: '/logo.svg'
-})
+usePageSeo(
+	() => `${project.value?.title || t('pages.project.title')} | ${t('brand.name')}`,
+	() => project.value?.summary || t('pages.project.description')
+)
 </script>
 
 <template>
@@ -33,7 +30,7 @@ useSeoMeta({
 		</section>
 
 		<div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-			<div class="flex aspect-[16/7] items-center justify-center rounded-2xl bg-slate-100 px-6 text-center text-sm text-slate-500">{{ t('pages.portfolio.imagePlaceholder') }}</div>
+			<div class="flex aspect-[16/7] items-center justify-center rounded-2xl bg-slate-100 px-6 text-center text-sm text-slate-600">{{ t('pages.portfolio.imagePlaceholder') }}</div>
 			<div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
 				<div class="space-y-5 leading-7 text-slate-600">
 					<ContentRenderer :value="project" />
@@ -41,15 +38,15 @@ useSeoMeta({
 				<aside class="h-fit rounded-2xl border border-slate-200 bg-white p-6">
 					<dl class="space-y-5">
 						<div>
-							<dt class="text-xs font-bold uppercase tracking-wide text-slate-500">{{ t('pages.portfolio.clientLabel') }}</dt>
+							<dt class="text-xs font-bold uppercase tracking-wide text-slate-600">{{ t('pages.portfolio.clientLabel') }}</dt>
 							<dd class="mt-1 font-semibold text-primary">{{ project.client }}</dd>
 						</div>
 						<div>
-							<dt class="text-xs font-bold uppercase tracking-wide text-slate-500">{{ t('pages.portfolio.sectorLabel') }}</dt>
+							<dt class="text-xs font-bold uppercase tracking-wide text-slate-600">{{ t('pages.portfolio.sectorLabel') }}</dt>
 							<dd class="mt-1 font-semibold text-primary">{{ project.sector }}</dd>
 						</div>
 						<div>
-							<dt class="text-xs font-bold uppercase tracking-wide text-slate-500">{{ t('pages.portfolio.technologyLabel') }}</dt>
+							<dt class="text-xs font-bold uppercase tracking-wide text-slate-600">{{ t('pages.portfolio.technologyLabel') }}</dt>
 							<dd class="mt-2 flex flex-wrap gap-2">
 								<span v-for="technology in project.technologies" :key="technology" class="rounded-full bg-surface px-3 py-1 text-xs font-medium text-primary">{{ technology }}</span>
 							</dd>

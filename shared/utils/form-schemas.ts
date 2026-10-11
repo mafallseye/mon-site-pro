@@ -25,6 +25,7 @@ export const quoteSchema = z.object({
   deadline: textField(2, 120),
   description: textField(20, 5000),
   consent: z.literal(true),
+  language: z.enum(['fr', 'en']).default('fr'),
   website: honeypotSchema
 })
 
@@ -32,6 +33,7 @@ export const contactSchema = z.object({
   name: textField(2, 120),
   email: z.string().trim().email().max(254),
   message: textField(10, 5000),
+  language: z.enum(['fr', 'en']).default('fr'),
   website: honeypotSchema
 })
 

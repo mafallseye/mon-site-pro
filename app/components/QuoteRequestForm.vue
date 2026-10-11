@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { quoteSchema } from '../../shared/utils/form-schemas'
 import type { QuotePayload } from '../../shared/utils/form-schemas'
+import { budgetOptions, projectTypeOptions } from '../../shared/utils/form-options'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const form = reactive({
   name: '',
@@ -18,23 +19,6 @@ const form = reactive({
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const fieldErrors = reactive<Record<string, string>>({})
 const errorMessage = ref('')
-
-const projectTypes = [
-  ['site-vitrine', 'forms.projectTypes.siteVitrine'],
-  ['e-commerce', 'forms.projectTypes.ecommerce'],
-  ['application-web', 'forms.projectTypes.webApp'],
-  ['maintenance', 'forms.projectTypes.maintenance'],
-  ['autre', 'forms.projectTypes.other']
-] as const
-
-const budgetOptions = [
-  ['moins-250k', 'forms.budgets.less250k'],
-  ['250k-500k', 'forms.budgets.250to500k'],
-  ['500k-1m', 'forms.budgets.500kto1m'],
-  ['1m-2m', 'forms.budgets.1to2m'],
-  ['plus-2m', 'forms.budgets.over2m'],
-  ['a-definir', 'forms.budgets.undecided']
-] as const
 
 const priceExamples = computed(() => [0, 1, 2, 3].map(index => ({
   service: t(`quoteStartingPrices.${index}.service`),
@@ -93,7 +77,7 @@ async function submitForm() {
   errorMessage.value = ''
   for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
 
-  const parsed = quoteSchema.safeParse(form)
+  const parsed = quoteSchema.safeParse({ ...form, language: locale.value })
   if (!parsed.success) {
     setValidationErrors(parsed.error.issues)
     status.value = 'error'
@@ -124,10 +108,10 @@ async function submitForm() {
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <article v-for="price in priceExamples" :key="price.service" class="rounded-xl bg-surface p-4">
         <h3 class="text-sm font-semibold text-primary">{{ price.service }}</h3>
-        <p class="mt-2 text-lg font-bold text-primary-light"><span class="text-xs font-medium text-slate-500">{{ t('pages.quote.startingAt') }}</span> {{ price.amount }}</p>
+        <p class="mt-2 text-lg font-bold text-primary-light"><span class="text-xs font-medium text-slate-600">{{ t('pages.quote.startingAt') }}</span> {{ price.amount }}</p>
       </article>
     </div>
-    <p class="mt-4 text-xs leading-5 text-slate-500">{{ t('pages.quote.disclaimer') }}</p>
+    <p class="mt-4 text-xs leading-5 text-slate-600">{{ t('pages.quote.disclaimer') }}</p>
 
     <form class="mt-8 space-y-5" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
       <div class="sr-only" aria-hidden="true">
@@ -147,7 +131,7 @@ async function submitForm() {
           <p v-if="fieldErrors.email" id="quote-email-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.email }}</p>
         </div>
         <div>
-          <label for="quote-company" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.company') }} <span class="font-normal text-slate-500">({{ t('pages.quote.companyOptional') }})</span></label>
+          <label for="quote-company" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.company') }} <span class="font-normal text-slate-600">({{ t('pages.quote.companyOptional') }})</span></label>
           <input id="quote-company" v-model="form.company" name="company" autocomplete="organization" maxlength="160" :aria-invalid="Boolean(fieldErrors.company)" :aria-describedby="fieldErrors.company ? 'quote-company-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderCompany')" @input="clearFieldError('company')">
           <p v-if="fieldErrors.company" id="quote-company-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.company }}</p>
         </div>
@@ -155,7 +139,7 @@ async function submitForm() {
           <label for="quote-project-type" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.projectType') }} <span aria-hidden="true">*</span></label>
           <select id="quote-project-type" v-model="form.projectType" name="projectType" required :aria-invalid="Boolean(fieldErrors.projectType)" :aria-describedby="fieldErrors.projectType ? 'quote-project-type-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" @change="clearFieldError('projectType')">
             <option value="" disabled>{{ t('forms.projectTypes.choose') }}</option>
-            <option v-for="[value, label] in projectTypes" :key="value" :value="value">{{ t(label) }}</option>
+            <option v-for="option in projectTypeOptions" :key="option.value" :value="option.value">{{ t(`forms.projectTypes.${option.messageKey}`) }}</option>
           </select>
           <p v-if="fieldErrors.projectType" id="quote-project-type-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.projectType }}</p>
         </div>
@@ -163,7 +147,7 @@ async function submitForm() {
           <label for="quote-budget" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.budget') }} <span aria-hidden="true">*</span></label>
           <select id="quote-budget" v-model="form.budget" name="budget" required :aria-invalid="Boolean(fieldErrors.budget)" :aria-describedby="fieldErrors.budget ? 'quote-budget-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" @change="clearFieldError('budget')">
             <option value="" disabled>{{ t('forms.budgets.choose') }}</option>
-            <option v-for="[value, label] in budgetOptions" :key="value" :value="value">{{ t(label) }}</option>
+            <option v-for="option in budgetOptions" :key="option.value" :value="option.value">{{ t(`forms.budgets.${option.messageKey}`) }}</option>
           </select>
           <p v-if="fieldErrors.budget" id="quote-budget-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.budget }}</p>
         </div>

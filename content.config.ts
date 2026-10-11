@@ -4,9 +4,10 @@ export default defineContentConfig({
   collections: {
     realisations: defineCollection({
       type: 'page',
-      source: 'realisations/*.md',
+      source: 'realisations/**/*.md',
       schema: z.object({
         slug: z.string(),
+        language: z.enum(['fr', 'en']),
         client: z.string(),
         sector: z.string(),
         technologies: z.array(z.string()),

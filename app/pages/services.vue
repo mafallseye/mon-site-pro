@@ -8,7 +8,10 @@ const services = computed(() => [0, 1, 2].map(index => ({
 	includes: [0, 1].map(item => t(`servicesList.${index}.includes.${item}`))
 })))
 
-useSeoMeta({ title: () => `${t('pages.services.title')} | DIGISERVICE`, description: () => t('pages.services.description'), ogTitle: () => `${t('pages.services.title')} | DIGISERVICE`, ogDescription: () => t('pages.services.description'), ogImage: '/logo.svg' })
+usePageSeo(
+	() => `${t('pages.services.title')} | ${t('brand.name')}`,
+	() => t('pages.services.description')
+)
 </script>
 
 <template>

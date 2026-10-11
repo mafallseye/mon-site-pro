@@ -1,11 +1,16 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const { locale } = useI18n()
 const localePath = useLocalePath()
-const { data: projects } = await useAsyncData('realisations-list', () =>
-	queryCollection('realisations').all()
+const { data: projects } = await useAsyncData(
+	() => `realisations-list-${locale.value}`,
+	() => queryCollection('realisations').where('language', '=', locale.value).all()
 )
 
-useSeoMeta({ title: () => `${t('pages.portfolio.title')} | DIGISERVICE`, description: () => t('pages.portfolio.description'), ogTitle: () => `${t('pages.portfolio.title')} | DIGISERVICE`, ogDescription: () => t('pages.portfolio.description'), ogImage: '/logo.svg' })
+usePageSeo(
+	() => `${t('pages.portfolio.title')} | ${t('brand.name')}`,
+	() => t('pages.portfolio.description')
+)
 </script>
 
 <template>
@@ -19,7 +24,7 @@ useSeoMeta({ title: () => `${t('pages.portfolio.title')} | DIGISERVICE`, descrip
 
 		<section class="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 md:grid-cols-2 lg:px-8">
 			<article v-for="project in projects || []" :key="project.slug" class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-				<div class="flex aspect-[16/8] items-center justify-center bg-slate-100 px-6 text-center text-sm text-slate-500">{{ t('pages.portfolio.imagePlaceholder') }}</div>
+				<div class="flex aspect-[16/8] items-center justify-center bg-slate-100 px-6 text-center text-sm text-slate-600">{{ t('pages.portfolio.imagePlaceholder') }}</div>
 				<div class="p-6 sm:p-8">
 					<p class="text-sm font-semibold text-primary-light">{{ project.sector }}</p>
 					<h2 class="mt-2 text-2xl font-bold text-primary">{{ project.title }}</h2>

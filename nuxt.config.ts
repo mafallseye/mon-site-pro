@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      siteUrl: '',
       contactEmail: '',
       contactPhone: '',
       contactLocation: ''
@@ -26,8 +27,8 @@ export default defineNuxtConfig({
     strategy: 'prefix_except_default',
     detectBrowserLanguage: false,
     locales: [
-      { code: 'fr', language: 'fr-FR', file: 'fr.json', name: 'Français' },
-      { code: 'en', language: 'en-US', file: 'en.json', name: 'English' }
+      { code: 'fr', language: 'fr', file: 'fr.json', name: 'Français' },
+      { code: 'en', language: 'en', file: 'en.json', name: 'English' }
     ],
     langDir: 'locales',
     bundle: {
@@ -36,7 +37,6 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      htmlAttrs: { lang: 'fr' },
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
     }
   }

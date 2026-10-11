@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const { t } = useI18n()
-useSeoMeta({ title: () => `${t('pages.quote.title')} | DIGISERVICE`, description: () => t('pages.quote.description'), ogTitle: () => `${t('pages.quote.title')} | DIGISERVICE`, ogDescription: () => t('pages.quote.description'), ogImage: '/logo.svg' })
+usePageSeo(
+	() => `${t('pages.quote.title')} | ${t('brand.name')}`,
+	() => t('pages.quote.description')
+)
 </script>
 
 <template>

@@ -8,13 +8,243 @@
     "home": "Home",
     "services": "Services",
     "portfolio": "Portfolio",
-    "process": "Process",
+    "process": "How it works",
     "about": "About",
     "contact": "Contact",
     "quote": "Request a quote",
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "mainLabel": "Main navigation",
+    "mobileLabel": "Mobile navigation"
+  },
+  "languageSwitcher": {
+    "label": "Choose a language",
+    "french": "Switch the site to French",
+    "english": "Switch the site to English"
+  },
+  "pages": {
+    "home": {
+      "title": "Home",
+      "description": "Professional websites to help your business grow in Senegal and beyond.",
+      "heroTitle": "Websites that work for your business.",
+      "heroSubtitle": "Custom brochure websites, e-commerce stores and web applications.",
+      "seeProjects": "Explore my work",
+      "proof": "Over two years of collaboration on economic missions between Europe and West Africa.",
+      "servicesTitle": "Web solutions built around your needs",
+      "servicesIntro": "From a strong online presence to a practical business tool, let’s find the right solution for you.",
+      "featuredTitle": "Selected projects",
+      "featuredIntro": "A selection of projects delivered in close collaboration with their clients.",
+      "processTitle": "Support at every stage",
+      "processIntro": "A clear process, from our first conversation through to launch.",
+      "ctaTitle": "Let’s talk about your project",
+      "ctaText": "Tell me what you have in mind and we’ll discuss a solution that fits.",
+      "ctaButton": "Request a quote"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Explore website design, e-commerce, custom web application and maintenance services.",
+      "intro": "Web solutions shaped around your goals, your business and the people you serve.",
+      "forLabel": "Who it’s for",
+      "includesLabel": "Scope and deliverables",
+      "maintenanceTitle": "Maintenance and hosting",
+      "maintenanceIntro": "Ongoing support to help keep your website current after launch.",
+      "maintenanceAudience": "For businesses that want to hand over the day-to-day care of their website.",
+      "maintenanceIncludes": "Content updates and technical monitoring, as agreed for each engagement.",
+      "maintenanceExperience": "I already maintain client websites, including Ikonik, with content updates and technical follow-up.",
+      "quoteCta": "Discuss this service"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "Browse selected web projects created to meet real client needs.",
+      "intro": "A selection of projects delivered in collaboration with the businesses and organisations behind them.",
+      "viewProject": "View project",
+      "visitWebsite": "Visit website",
+      "clientLabel": "Client",
+      "sectorLabel": "Sector",
+      "technologyLabel": "Technologies",
+      "imagePlaceholder": "Project image coming soon"
+    },
+    "project": {
+      "title": "Project",
+      "description": "Explore a web project delivered by DIGISERVICE.",
+      "notFound": "Project not found."
+    },
+    "process": {
+      "title": "How it works",
+      "description": "See how your website project moves from the initial brief through to launch and follow-up.",
+      "intro": "A structured process, with check-ins at the important moments of your project."
+    },
+    "quote": {
+      "title": "Pricing and quotes",
+      "description": "Tell me about your web project and receive a proposal shaped around its scope.",
+      "intro": "Share a few details so I can prepare a proposal that fits your project.",
+      "priceTitle": "Indicative starting points",
+      "priceIntro": "Example figures only. They should be reviewed against the scope of each project.",
+      "startingAt": "Starting at",
+      "disclaimer": "These example amounts are not a quote. The final budget depends on the agreed scope.",
+      "formTitle": "Request a quote",
+      "formIntro": "Fields marked with an asterisk are required.",
+      "name": "Name",
+      "email": "Email address",
+      "company": "Company",
+      "companyOptional": "optional",
+      "projectType": "Project type",
+      "budget": "Approximate budget",
+      "deadline": "Desired timeframe",
+      "descriptionLabel": "Tell me about your project",
+      "consentBefore": "I agree that my details may be used to respond to my request. Please read the",
+      "consentLink": "privacy policy",
+      "consentAfter": ".",
+      "submit": "Send my request",
+      "sending": "Sending…",
+      "success": "Your request has been sent. Thank you — I’ll be in touch.",
+      "placeholderName": "Your name",
+      "placeholderEmail": "you{'@'}example.com",
+      "placeholderCompany": "Your company name",
+      "placeholderDeadline": "For example: in the coming months; date to be confirmed",
+      "placeholderDescription": "Tell me about your business, what you need and any features or content you have in mind."
+    },
+    "about": { "title": "About", "description": "Meet DIGISERVICE and learn about this approach to custom web development." },
+    "contact": {
+      "title": "Contact",
+      "description": "Get in touch with DIGISERVICE to discuss a website or web application project.",
+      "intro": "Have a question or an idea for a project? Send me a message.",
+      "formTitle": "Send a message",
+      "name": "Name",
+      "email": "Email address",
+      "message": "Message",
+      "placeholderName": "Your name",
+      "placeholderEmail": "you{'@'}example.com",
+      "placeholderMessage": "How can I help?",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Your message has been sent. Thank you — I’ll reply as soon as I can.",
+      "detailsTitle": "Contact details",
+      "missingDetails": "Direct contact details have not been configured yet. Please use the form to get in touch."
+    },
+    "legal": {
+      "title": "Legal notice",
+      "description": "Information about the publisher, hosting and intellectual property of the DIGISERVICE website.",
+      "intro": "Items in square brackets must be completed or confirmed before publication.",
+      "sections": [
+        { "title": "Website publisher", "text": "Legal name: [À COMPLÉTER — full name or registered business name].\nTrading name: DIGISERVICE.\nLegal status: [À COMPLÉTER — legal form or status].\nRegistered or business address: [À COMPLÉTER].\nRegistration number (RCCM, NINEA or equivalent): [À COMPLÉTER or state if not applicable].\nPublication director: [À COMPLÉTER].\nContact: [[contactEmail]]." },
+        { "title": "Hosting", "text": "Actual hosting provider: [À COMPLÉTER — company name, postal address and contact details].\nDeployment to Vercel is planned for this project; the actual hosting arrangement and contractual details must be confirmed." },
+        { "title": "Intellectual property", "text": "Unless stated otherwise, original website content (text, graphics and code) is protected by applicable intellectual property rules. Reproduction or reuse requires prior permission from the rights holder. Third-party brands, content and projects remain the property of their respective owners." },
+        { "title": "Contact", "text": "For questions about this website or this notice, contact the publisher at: [[contactEmail]]." }
+      ],
+      "missingEmail": "[À COMPLÉTER — contact email address]"
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "Data collected through DIGISERVICE forms, how it is used, retention and individual rights.",
+      "intro": "This page describes processing related to the contact and quote request forms. Items in square brackets must be confirmed or completed before publication.",
+      "sections": [
+        { "title": "Data controller and contact", "text": "Controller: [À COMPLÉTER — legal name and status of the responsible person or organisation].\nAddress: [À COMPLÉTER].\nFor requests concerning your data, email [[contactEmail]]." },
+        { "title": "Data collected", "text": "The contact form collects your name, email address and message. The quote form collects your name, email address, optionally your company, project type, budget range, desired timeframe, project description and consent. Requests are also rate-limited by IP address to help prevent abuse." },
+        { "title": "Purposes and recipients", "text": "Form data is used to review and respond to your message or quote request. It is sent by email to the recipient configured for the website through the Resend sending service. The website code does not store submissions in an application database. Any technical hosting logs and Resend’s processing terms should be confirmed against their respective settings and terms." },
+        { "title": "Legal basis", "text": "Applicable legal basis for each form: [À COMPLÉTER — confirm under applicable law]. The quote form includes a consent checkbox for using the data to respond to the request." },
+        { "title": "Retention period", "text": "Messages and quote requests received by email: [À COMPLÉTER — define a retention period and deletion procedure]. Timestamps held in memory for rate limiting are filtered against a ten-minute window when another request arrives from the same IP address. Retention periods for hosting logs and Resend remain to be confirmed." },
+        { "title": "Your rights", "text": "Subject to applicable law, you may request access to, correction or deletion of your data, and exercise other rights available to you (including objection, restriction or portability where applicable). To exercise your rights or ask a question, contact [[contactEmail]]. Competent supervisory authority and complaint procedure: [À COMPLÉTER under applicable law]." },
+        { "title": "Cookies and analytics", "text": "Use of non-essential cookies or analytics tools: [À COMPLÉTER — confirm which tools are present and how they are configured]." },
+        { "title": "Updates", "text": "Last updated: [À COMPLÉTER]. This policy should be reviewed if forms, providers or data-processing practices change." }
+      ],
+      "missingEmail": "[À COMPLÉTER — contact email address]"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you requested could not be found.",
+      "backHome": "Back to home"
+    },
+    "error": {
+      "title": "Something went wrong",
+      "description": "The page could not be displayed. Please try again or return home.",
+      "backHome": "Back to home"
+    }
+  },
+  "servicesList": [
+    {
+      "title": "Brochure website",
+      "summary": "Present your business with a professional website that is clear and easy to navigate.",
+      "audience": "For independent professionals, associations and businesses looking to present their services online.",
+      "includes": ["Scope and deliverables agreed around your needs", "Services confirmed in the proposal before work begins"]
+    },
+    {
+      "title": "E-commerce",
+      "summary": "Offer your products or services for sale through an online store.",
+      "audience": "For businesses that want to showcase and sell products online.",
+      "includes": ["Store features and scope shaped around your needs", "Deliverables confirmed in the proposal before work begins"]
+    },
+    {
+      "title": "Custom web application",
+      "summary": "A web-based tool designed around a specific business need or service.",
+      "audience": "For organisations looking to turn a process or service into a web application.",
+      "includes": ["Functional scope defined around your requirements", "Features and deliverables confirmed in the proposal"]
+    }
+  ],
+  "homeServices": [
+    { "title": "Brochure website", "text": "Present your business and services with a professional, responsive website." },
+    { "title": "E-commerce", "text": "Showcase your products and make them available to buy online." },
+    { "title": "Web application", "text": "Build a web-based tool shaped around your needs and users." }
+  ],
+  "homeProcess": [
+    { "title": "Brief", "text": "We discuss your business, needs and goals." },
+    { "title": "Proposal and scope", "text": "We agree on the project scope and terms before work begins." },
+    { "title": "Development", "text": "The solution is designed and built, with check-ins at key stages." },
+    { "title": "Launch and follow-up", "text": "Your website goes live, with ongoing support available by agreement." }
+  ],
+  "processSteps": [
+    { "title": "Brief", "text": "We talk through your business, audience, goals and requirements." },
+    { "title": "Proposal", "text": "You receive a proposal setting out the agreed scope, deliverables and terms." },
+    { "title": "Development", "text": "The solution is designed and built, with check-ins at key milestones." },
+    { "title": "Launch", "text": "The website or application is reviewed and launched within the agreed scope." },
+    { "title": "Follow-up", "text": "After launch, support or maintenance can be arranged around your needs." }
+  ],
+  "common": {
+    "requestQuote": "Request a quote",
+    "learnMore": "Learn more",
+    "backToProjects": "Back to projects"
+  },
+  "forms": {
+    "required": "Required field.",
+    "errors": {
+      "required": "Please complete this field.",
+      "email": "Please enter a valid email address.",
+      "invalid": "Please check the information entered.",
+      "tooShort": "Your response is too short.",
+      "rateLimited": "Too many requests have been sent. Please try again in a few minutes.",
+      "unavailable": "The sending service is temporarily unavailable. Please try again later.",
+      "sendFailed": "Your message could not be sent. Check your connection and try again.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "projectTypes": {
+      "choose": "Choose a project type",
+      "siteVitrine": "Brochure website",
+      "ecommerce": "E-commerce",
+      "webApp": "Web application",
+      "maintenance": "Maintenance",
+      "other": "Other"
+    },
+    "budgets": {
+      "choose": "Choose a budget range",
+      "less250k": "Under 250,000 FCFA",
+      "250to500k": "250,000–500,000 FCFA",
+      "500kto1m": "500,000–1,000,000 FCFA",
+      "1to2m": "1,000,000–2,000,000 FCFA",
+      "over2m": "Over 2,000,000 FCFA",
+      "undecided": "To be discussed"
+    },
+    "honeypotLabel": "Leave this field blank"
+  },
+  "quoteStartingPrices": [
+    { "service": "Brochure website", "amount": "250,000 FCFA" },
+    { "service": "E-commerce", "amount": "500,000 FCFA" },
+    { "service": "Custom web application", "amount": "750,000 FCFA" },
+    { "service": "Maintenance", "amount": "50,000 FCFA" }
+  ],
+  "structuredData": {
+    "serviceType": "Website and web application development",
+    "areaServed": "Senegal and international clients"
   },
   "footer": {
     "navigation": "Navigation",
@@ -22,17 +252,5 @@
     "legal": "Legal notice",
     "privacy": "Privacy policy",
     "rights": "All rights reserved."
-  },
-  "pages": {
-    "home": { "title": "Home", "description": "Professional websites to grow your business in Senegal and internationally." },
-    "services": { "title": "Services", "description": "Explore our brochure website, e-commerce, web application and maintenance services." },
-    "portfolio": { "title": "Portfolio", "description": "Explore a selection of web projects designed to meet our clients’ needs." },
-    "project": { "title": "Project", "description": "Discover the details of this web project by DIGISERVICE." },
-    "process": { "title": "Our process", "description": "Discover the steps involved in creating your website, from discovery to launch." },
-    "quote": { "title": "Pricing and quote", "description": "Tell us about your web project and get a proposal tailored to your needs." },
-    "about": { "title": "About", "description": "Learn about DIGISERVICE and our approach to custom web development." },
-    "contact": { "title": "Contact", "description": "Contact DIGISERVICE to discuss your website or application project." },
-    "legal": { "title": "Legal notice", "description": "Read the legal notice for the DIGISERVICE website." },
-    "privacy": { "title": "Privacy policy", "description": "Read DIGISERVICE’s privacy policy and data processing practices." }
   }
 }

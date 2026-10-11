@@ -1,6 +1,7 @@
 ---
 title: Belemb.eu
 slug: belemb-eu
+language: fr
 client: Belemb.eu
 sector: Missions économiques et réseautage B2B
 technologies:
