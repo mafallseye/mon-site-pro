@@ -97,8 +97,27 @@ export async function sendFormEmail(
   }
 }
 
-export function respondToHoneypot(website: string | undefined): boolean {
-  return Boolean(website?.trim())
+export function respondToHoneypot(honeypotValue: string | undefined): boolean {
+  return Boolean(honeypotValue?.trim())
+}
+
+export async function deliverFormSubmission(
+  honeypotValue: string | undefined,
+  fillDurationMs: number | undefined,
+  deliver: () => Promise<void>
+): Promise<{ success: true }> {
+  if (respondToHoneypot(honeypotValue)) {
+    console.info(`[form-submission] honeypot déclenché (durée : ${fillDurationMs ?? 'indisponible'} ms)`)
+    return { success: true }
+  }
+
+  if (typeof fillDurationMs === 'number' && Number.isFinite(fillDurationMs) && fillDurationMs < 3000) {
+    console.info(`[form-submission] trop rapide (durée : ${fillDurationMs} ms)`)
+    return { success: true }
+  }
+
+  await deliver()
+  return { success: true }
 }
 
 export function formErrorResponse(event: H3Event, error: unknown) {

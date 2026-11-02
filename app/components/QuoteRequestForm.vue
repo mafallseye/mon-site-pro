@@ -14,11 +14,16 @@ const form = reactive({
   deadline: '',
   description: '',
   consent: false,
-  website: ''
+  contact_pref_hp: ''
 })
+const formStartedAt = ref<number>()
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const fieldErrors = reactive<Record<string, string>>({})
 const errorMessage = ref('')
+
+onMounted(() => {
+  formStartedAt.value = performance.now()
+})
 
 const priceExamples = computed(() => [0, 1, 2, 3].map(index => ({
   service: t(`quoteStartingPrices.${index}.service`),
@@ -34,7 +39,7 @@ function clearFieldError(field: string) {
 function setValidationErrors(issues: Array<{ path: PropertyKey[], code: string }>) {
   for (const issue of issues) {
     const field = String(issue.path[0] || '')
-    if (!field || field === 'website') continue
+    if (!field || field === 'contact_pref_hp' || field === 'fillDurationMs') continue
     const key = issue.code === 'invalid_format'
       ? 'email'
       : issue.code === 'too_small' && field === 'description'
@@ -57,7 +62,7 @@ function handleApiError(error: unknown) {
   if (apiError?.fieldErrors) {
     for (const [field, messages] of Object.entries(apiError.fieldErrors)) {
       if (field === 'email') fieldErrors[field] = t('forms.errors.email')
-      else if (field === 'website') continue
+      else if (field === 'contact_pref_hp' || field === 'fillDurationMs') continue
       else if (messages.length) fieldErrors[field] = t('forms.errors.invalid')
     }
   }
@@ -77,7 +82,10 @@ async function submitForm() {
   errorMessage.value = ''
   for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
 
-  const parsed = quoteSchema.safeParse({ ...form, language: locale.value })
+  const fillDurationMs = formStartedAt.value === undefined
+    ? undefined
+    : performance.now() - formStartedAt.value
+  const parsed = quoteSchema.safeParse({ ...form, language: locale.value, fillDurationMs })
   if (!parsed.success) {
     setValidationErrors(parsed.error.issues)
     status.value = 'error'
@@ -92,8 +100,10 @@ async function submitForm() {
     await $fetch('/api/devis', { method: 'POST', body: parsed.data as QuotePayload })
     status.value = 'success'
     Object.assign(form, {
-      name: '', email: '', company: '', projectType: '', budget: '', deadline: '', description: '', consent: false, website: ''
+      name: '', email: '', company: '', projectType: '', budget: '', deadline: '', description: '', consent: false,
+      contact_pref_hp: ''
     })
+    formStartedAt.value = performance.now()
   } catch (error) {
     handleApiError(error)
   }
@@ -114,9 +124,9 @@ async function submitForm() {
     <p class="mt-4 text-xs leading-5 text-slate-600">{{ t('pages.quote.disclaimer') }}</p>
 
     <form class="mt-8 space-y-5" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
-      <div class="sr-only" aria-hidden="true">
-        <label for="quote-website">{{ t('forms.honeypotLabel') }}</label>
-        <input id="quote-website" v-model="form.website" type="text" name="website" tabindex="-1" autocomplete="off">
+      <div class="pointer-events-none h-px w-px overflow-hidden" style="position: absolute; left: -10000px;" aria-hidden="true" inert>
+        <label for="quote-contact-pref-hp" aria-hidden="true">{{ t('forms.honeypotLabel') }}</label>
+        <input id="quote-contact-pref-hp" v-model="form.contact_pref_hp" type="text" name="contact_pref_hp" tabindex="-1" aria-hidden="true" autocomplete="off">
       </div>
 
       <div class="grid gap-5 sm:grid-cols-2">

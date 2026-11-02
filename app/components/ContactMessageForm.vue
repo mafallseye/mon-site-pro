@@ -3,10 +3,15 @@ import { contactSchema } from '../../shared/utils/form-schemas'
 import type { ContactPayload } from '../../shared/utils/form-schemas'
 
 const { t, locale } = useI18n()
-const form = reactive({ name: '', email: '', message: '', website: '' })
+const form = reactive({ name: '', email: '', message: '', contact_pref_hp: '' })
+const formStartedAt = ref<number>()
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const fieldErrors = reactive<Record<string, string>>({})
 const errorMessage = ref('')
+
+onMounted(() => {
+  formStartedAt.value = performance.now()
+})
 
 function clearFieldError(field: string) {
   delete fieldErrors[field]
@@ -17,7 +22,7 @@ function clearFieldError(field: string) {
 function setValidationErrors(issues: Array<{ path: PropertyKey[], code: string }>) {
   for (const issue of issues) {
     const field = String(issue.path[0] || '')
-    if (!field || field === 'website') continue
+    if (!field || field === 'contact_pref_hp' || field === 'fillDurationMs') continue
     const key = issue.code === 'invalid_format'
       ? 'email'
       : issue.code === 'too_small' && field === 'message'
@@ -33,7 +38,10 @@ async function submitForm() {
   errorMessage.value = ''
   for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
 
-  const parsed = contactSchema.safeParse({ ...form, language: locale.value })
+  const fillDurationMs = formStartedAt.value === undefined
+    ? undefined
+    : performance.now() - formStartedAt.value
+  const parsed = contactSchema.safeParse({ ...form, language: locale.value, fillDurationMs })
   if (!parsed.success) {
     setValidationErrors(parsed.error.issues)
     status.value = 'error'
@@ -47,7 +55,8 @@ async function submitForm() {
   try {
     await $fetch('/api/contact', { method: 'POST', body: parsed.data as ContactPayload })
     status.value = 'success'
-    Object.assign(form, { name: '', email: '', message: '', website: '' })
+    Object.assign(form, { name: '', email: '', message: '', contact_pref_hp: '' })
+    formStartedAt.value = performance.now()
   } catch (error) {
     const response = error as {
       data?: {
@@ -60,7 +69,7 @@ async function submitForm() {
     if (apiError?.fieldErrors) {
       for (const [field, messages] of Object.entries(apiError.fieldErrors)) {
         if (field === 'email') fieldErrors[field] = t('forms.errors.email')
-        else if (field !== 'website' && messages.length) fieldErrors[field] = t('forms.errors.invalid')
+        else if (field !== 'contact_pref_hp' && field !== 'fillDurationMs' && messages.length) fieldErrors[field] = t('forms.errors.invalid')
       }
     }
     errorMessage.value = apiError?.code === 'RATE_LIMITED'
@@ -79,9 +88,9 @@ async function submitForm() {
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <h2 class="text-2xl font-bold text-primary">{{ t('pages.contact.formTitle') }}</h2>
     <form class="mt-6 space-y-5" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
-      <div class="sr-only" aria-hidden="true">
-        <label for="contact-website">{{ t('forms.honeypotLabel') }}</label>
-        <input id="contact-website" v-model="form.website" type="text" name="website" tabindex="-1" autocomplete="off">
+      <div class="pointer-events-none h-px w-px overflow-hidden" style="position: absolute; left: -10000px;" aria-hidden="true" inert>
+        <label for="contact-contact-pref-hp" aria-hidden="true">{{ t('forms.honeypotLabel') }}</label>
+        <input id="contact-contact-pref-hp" v-model="form.contact_pref_hp" type="text" name="contact_pref_hp" tabindex="-1" aria-hidden="true" autocomplete="off">
       </div>
 
       <div>

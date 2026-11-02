@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
 const honeypotSchema = z.string().max(500).optional().default('')
+const fillDurationMsSchema = z.preprocess(
+  value => typeof value === 'number' && Number.isFinite(value) ? value : undefined,
+  z.number().optional()
+)
 
 function normalizeText(value: unknown): unknown {
   if (typeof value !== 'string') return value
@@ -26,7 +30,8 @@ export const quoteSchema = z.object({
   description: textField(20, 5000),
   consent: z.literal(true),
   language: z.enum(['fr', 'en']).default('fr'),
-  website: honeypotSchema
+  contact_pref_hp: honeypotSchema,
+  fillDurationMs: fillDurationMsSchema
 })
 
 export const contactSchema = z.object({
@@ -34,7 +39,8 @@ export const contactSchema = z.object({
   email: z.string().trim().email().max(254),
   message: textField(10, 5000),
   language: z.enum(['fr', 'en']).default('fr'),
-  website: honeypotSchema
+  contact_pref_hp: honeypotSchema,
+  fillDurationMs: fillDurationMsSchema
 })
 
 export type QuotePayload = z.infer<typeof quoteSchema>

@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { contactSchema, quoteSchema } from './form-schemas'
-import { escapeHtml } from '../../server/utils/form-submission'
+import { deliverFormSubmission, escapeHtml } from '../../server/utils/form-submission'
 
 describe('form schemas', () => {
   it('accepts French names, apostrophes, punctuation, accents and multiline project details', () => {
@@ -46,10 +46,79 @@ describe('form schemas', () => {
 
     expect(result.success).toBe(false)
   })
+
+  it('uses the renamed honeypot and treats an invalid duration as absent', () => {
+    expect(contactSchema.shape).toHaveProperty('contact_pref_hp')
+    expect(contactSchema.shape).not.toHaveProperty('website')
+    expect(quoteSchema.shape).toHaveProperty('contact_pref_hp')
+    expect(quoteSchema.shape).not.toHaveProperty('website')
+
+    const result = contactSchema.safeParse({
+      name: 'Client',
+      email: 'client@example.com',
+      message: 'A sufficiently long message.',
+      fillDurationMs: 'invalid'
+    })
+
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.fillDurationMs).toBeUndefined()
+  })
 })
 
 describe('email HTML escaping', () => {
   it('escapes apostrophes, quotes, ampersands and angle brackets', () => {
     expect(escapeHtml(`'"&<>`)).toBe('&#39;&quot;&amp;&lt;&gt;')
+  })
+})
+
+describe('form anti-robot filters', () => {
+  it('accepts a legitimate submission without a honeypot value and delivers the email', async () => {
+    const sendEmail = vi.fn(async () => undefined)
+
+    const result = await deliverFormSubmission('', 8000, sendEmail)
+
+    expect(result).toEqual({ success: true })
+    expect(sendEmail).toHaveBeenCalledOnce()
+  })
+
+  it('simulates success without sending email when the honeypot is filled', async () => {
+    const sendEmail = vi.fn(async () => undefined)
+    const log = vi.spyOn(console, 'info').mockImplementation(() => undefined)
+
+    const result = await deliverFormSubmission('autofilled@example.com', 8000, sendEmail)
+
+    expect(result).toEqual({ success: true })
+    expect(sendEmail).not.toHaveBeenCalled()
+    expect(log).toHaveBeenCalledWith('[form-submission] honeypot déclenché (durée : 8000 ms)')
+    expect(log.mock.calls.flat().join(' ')).not.toContain('autofilled@example.com')
+    log.mockRestore()
+  })
+
+  it('simulates success without sending email when fillDurationMs is 2000', async () => {
+    const sendEmail = vi.fn(async () => undefined)
+    const log = vi.spyOn(console, 'info').mockImplementation(() => undefined)
+
+    const result = await deliverFormSubmission('', 2000, sendEmail)
+
+    expect(result).toEqual({ success: true })
+    expect(sendEmail).not.toHaveBeenCalled()
+    expect(log).toHaveBeenCalledWith('[form-submission] trop rapide (durée : 2000 ms)')
+    log.mockRestore()
+  })
+
+  it('sends email when fillDurationMs is 8000', async () => {
+    const sendEmail = vi.fn(async () => undefined)
+    const result = await deliverFormSubmission('', 8000, sendEmail)
+
+    expect(result).toEqual({ success: true })
+    expect(sendEmail).toHaveBeenCalledOnce()
+  })
+
+  it('sends email when fillDurationMs is absent or invalid', async () => {
+    const sendEmail = vi.fn(async () => undefined)
+
+    await expect(deliverFormSubmission('', undefined, sendEmail)).resolves.toEqual({ success: true })
+    await expect(deliverFormSubmission('', Number.NaN, sendEmail)).resolves.toEqual({ success: true })
+    expect(sendEmail).toHaveBeenCalledTimes(2)
   })
 })
