@@ -121,7 +121,9 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 
 ### Composants communs (`app/components`)
 - Page À propos : textes dans `pages.about.*` (présentation, `experience[]`, `skills[]`), repris du
-  portfolio `mafallseye/my-portfolio` ; ne pas inventer de parcours ni de compétences.
+  portfolio `mafallseye/my-portfolio` puis corrigés par la propriétaire (stage AXETAG SAS ajouté,
+  Orange Digital Center retiré, compétences Python/Swagger/React) ; ne pas inventer de parcours
+  ni de compétences.
 - Mise en page : `PageHeader` (seul h1 de la page + filet or + intro), `SectionHeading` (h2 + intro),
   `BrandMark` (composition décorative du monogramme), `LegalPage` (gabarit des pages légales).
 - Actions : `AppButton` (`variant` primary = or / secondary = contour émeraude ; `to` = lien),

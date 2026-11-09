@@ -128,10 +128,10 @@
           "text": "Conception d’architectures SaaS et intégration de modèles d’IA pour automatiser des processus métier complexes."
         },
         {
-          "period": "Janv. 2022 — août 2022",
-          "role": "Stagiaire développeuse full stack",
-          "organization": "Orange Digital Center",
-          "text": "Immersion dans des projets agiles et développement d’applications web réactives."
+          "period": "Janv. 2022 — juil. 2022",
+          "role": "Stagiaire développeuse full stack (en remote)",
+          "organization": "AXETAG SAS",
+          "text": "Création d’API REST en Python (Flask) documentées avec Swagger UI, et intégration de ces API dans des interfaces Vue.js."
         }
       ],
       "skillsTitle": "Expertises techniques",
