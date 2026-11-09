@@ -10,7 +10,16 @@ export default defineNuxtConfig({
       sqliteConnector: 'native'
     }
   },
+  // Déploiement Vercel. Pour tester le build en local avec `npm run preview`,
+  // construire avec NITRO_PRESET=node-server (voir README).
+  nitro: {
+    preset: process.env.NITRO_PRESET || 'vercel'
+  },
   runtimeConfig: {
+    // Privé (serveur uniquement) : surchargé par NUXT_SUPABASE_URL et NUXT_SUPABASE_SERVICE_ROLE_KEY.
+    // Ne JAMAIS déplacer ces clés dans `public`.
+    supabaseUrl: '',
+    supabaseServiceRoleKey: '',
     public: {
       siteUrl: '',
       contactEmail: '',

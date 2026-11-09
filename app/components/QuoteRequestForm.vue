@@ -78,6 +78,7 @@ const priceExamples = computed(() => [0, 1, 2, 3].map(index => ({
 
       <FormAlert v-if="errorMessage" tone="error">{{ errorMessage }}</FormAlert>
       <FormAlert v-if="status === 'success'" tone="success">{{ t('pages.quote.success') }}</FormAlert>
+      <FormAlert v-if="status === 'received'" tone="success">{{ t('pages.quote.received') }}</FormAlert>
       <AppButton type="submit" block :disabled="status === 'loading'">
         {{ status === 'loading' ? t('pages.quote.sending') : t('pages.quote.submit') }}
       </AppButton>

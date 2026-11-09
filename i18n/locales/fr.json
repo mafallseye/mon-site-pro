@@ -92,7 +92,6 @@
       "projectType": "Type de projet",
       "budget": "Budget approximatif",
       "deadline": "Délai souhaité",
-      "description": "Description du projet",
       "descriptionLabel": "Décrivez votre projet",
       "consentBefore": "J'accepte que mes données soient utilisées pour répondre à ma demande. Consultez la",
       "consentLink": "politique de confidentialité",
@@ -100,6 +99,7 @@
       "submit": "Envoyer ma demande",
       "sending": "Envoi en cours…",
       "success": "Votre demande a bien été envoyée. Merci, nous reviendrons vers vous.",
+      "received": "Votre demande a bien été reçue. Inutile de la renvoyer : je reviens vers vous dès que possible.",
       "placeholderName": "Votre nom",
       "placeholderEmail": "vous{'@'}exemple.com",
       "placeholderCompany": "Nom de votre entreprise",
@@ -121,6 +121,7 @@
       "submit": "Envoyer le message",
       "sending": "Envoi en cours…",
       "success": "Votre message a bien été envoyé. Merci, je vous répondrai dès que possible.",
+      "received": "Votre message a bien été reçu. Inutile de le renvoyer : je vous réponds dès que possible.",
       "detailsTitle": "Mes coordonnées",
       "missingDetails": "Les coordonnées directes ne sont pas encore configurées. Vous pouvez utiliser le formulaire pour me joindre."
     },

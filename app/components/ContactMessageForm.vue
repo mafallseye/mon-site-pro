@@ -22,6 +22,7 @@ const { form, status, fieldErrors, errorMessage, clearFieldError, submitForm } =
 
       <FormAlert v-if="errorMessage" tone="error">{{ errorMessage }}</FormAlert>
       <FormAlert v-if="status === 'success'" tone="success">{{ t('pages.contact.success') }}</FormAlert>
+      <FormAlert v-if="status === 'received'" tone="success">{{ t('pages.contact.received') }}</FormAlert>
       <AppButton type="submit" block :disabled="status === 'loading'">
         {{ status === 'loading' ? t('pages.contact.sending') : t('pages.contact.submit') }}
       </AppButton>
