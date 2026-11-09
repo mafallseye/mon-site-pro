@@ -13,7 +13,10 @@ export default defineContentConfig({
         technologies: z.array(z.string()),
         link: z.string().url(),
         summary: z.string(),
-        featured: z.boolean()
+        featured: z.boolean(),
+        // Captures d'écran (chemins dans /public), facultatives : sinon ImagePlaceholder
+        image: z.string().optional(),
+        imageMobile: z.string().optional()
       })
     })
   }

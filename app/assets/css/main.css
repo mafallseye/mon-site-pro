@@ -103,6 +103,7 @@
   --aspect-card: 16 / 10;
   --aspect-wide: 16 / 7;
   --grid-template-columns-main-aside: minmax(0, 1fr) var(--container-aside);
+  --grid-template-columns-media-phone: minmax(0, 1fr) auto;
   --min-width-page: 320px;
 }
 

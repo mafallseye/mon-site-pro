@@ -24,7 +24,8 @@ export default defineNuxtConfig({
       siteUrl: '',
       contactEmail: '',
       contactPhone: '',
-      contactLocation: ''
+      contactLocation: '',
+      contactWhatsapp: ''
     }
   },
   css: ['~/assets/css/main.css'],

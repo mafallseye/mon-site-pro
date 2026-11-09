@@ -68,7 +68,10 @@ dans `server/routes/sitemap.xml.get.ts`.
 
 ### Réalisations (Nuxt Content)
 - Schéma dans `content.config.ts` (collection `realisations`) : `slug`, `language` (fr|en),
-  `client`, `sector`, `technologies`, `link`, `summary`, `featured`, plus `title`.
+  `client`, `sector`, `technologies`, `link`, `summary`, `featured`, plus `title`, et les captures
+  facultatives `image` (ordinateur, 1440×900) / `imageMobile` (780 px de large), en WebP dans
+  `public/realisations/<slug>-desktop.webp` et `-mobile.webp`. Sans `image` : `ImagePlaceholder`.
+  Affichage : `ProjectCard` (capture ordinateur) et `ProjectGallery` (page détail, les deux).
 - Une réalisation = deux fichiers : `content/realisations/<slug>.md` (FR) et
   `content/realisations/en/<slug>.md` (EN), avec le **même `slug`** et `language` différent.
 - Les pages filtrent par `language = locale` et `slug`.
@@ -113,9 +116,12 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
   (`supabaseUrl` / `supabaseServiceRoleKey`, lus avec `useRuntimeConfig(event)` ; jamais dans `public`)
 - Publiques (`runtimeConfig.public`) : `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_CONTACT_EMAIL`,
   `NUXT_PUBLIC_CONTACT_PHONE`, `NUXT_PUBLIC_CONTACT_LOCATION` (utilisées par Contact,
-  Mentions légales, Politique de confidentialité)
+  Mentions légales, Politique de confidentialité), `NUXT_PUBLIC_CONTACT_WHATSAPP`
+  (lien wa.me via `useWhatsAppLink()`, page Contact et footer)
 
 ### Composants communs (`app/components`)
+- Page À propos : textes dans `pages.about.*` (présentation, `experience[]`, `skills[]`), repris du
+  portfolio `mafallseye/my-portfolio` ; ne pas inventer de parcours ni de compétences.
 - Mise en page : `PageHeader` (seul h1 de la page + filet or + intro), `SectionHeading` (h2 + intro),
   `BrandMark` (composition décorative du monogramme), `LegalPage` (gabarit des pages légales).
 - Actions : `AppButton` (`variant` primary = or / secondary = contour émeraude ; `to` = lien),

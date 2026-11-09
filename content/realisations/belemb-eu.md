@@ -10,6 +10,8 @@ technologies:
 link: https://belemb.eu
 summary: Plateforme de missions économiques et de réseautage B2B entre entreprises étrangères et d’Afrique de l’Ouest.
 featured: true
+image: /realisations/belemb-eu-desktop.webp
+imageMobile: /realisations/belemb-eu-mobile.webp
 ---
 
 Collaboration depuis 2023 autour de la conception et du développement du site.

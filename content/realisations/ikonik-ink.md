@@ -10,6 +10,8 @@ technologies:
 link: https://ikonik.ink
 summary: Site bilingue français/anglais d’une galerie d’art contemporain entre Dakar et Bruxelles.
 featured: true
+image: /realisations/ikonik-ink-desktop.webp
+imageMobile: /realisations/ikonik-ink-mobile.webp
 ---
 
 Réalisation du projet de A à Z : conception, design, développement et mise en ligne.

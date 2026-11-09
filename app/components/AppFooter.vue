@@ -4,6 +4,7 @@ const localePath = useLocalePath()
 
 const footerLinks = useMainNavigation()
 
+const whatsappLink = useWhatsAppLink()
 const legalLinks = computed(() => [
   { label: t('footer.legal'), to: localePath('/mentions-legales') },
   { label: t('footer.privacy'), to: localePath('/politique-de-confidentialite') }
@@ -37,6 +38,7 @@ const year = new Date().getFullYear()
         <LanguageSwitcher variant="dark" class="mt-4" />
         <ul class="mt-4 flex flex-col">
           <li><NuxtLink :to="localePath('/contact')" :class="linkClass">{{ t('navigation.contact') }}</NuxtLink></li>
+          <li v-if="whatsappLink"><a :href="whatsappLink" target="_blank" rel="noopener noreferrer" :class="linkClass">{{ t('pages.contact.whatsapp') }}</a></li>
           <li v-for="item in legalLinks" :key="item.to">
             <NuxtLink :to="item.to" :class="linkClass">{{ item.label }}</NuxtLink>
           </li>

@@ -63,7 +63,9 @@
       "clientLabel": "Client",
       "sectorLabel": "Secteur",
       "technologyLabel": "Technologies",
-      "imagePlaceholder": "Emplacement réservé à une image du projet"
+      "imagePlaceholder": "Emplacement réservé à une image du projet",
+      "screenshotDesktop": "Capture d’écran du site {title} sur ordinateur",
+      "screenshotMobile": "Capture d’écran du site {title} sur mobile"
     },
     "project": {
       "title": "Réalisation",
@@ -106,7 +108,63 @@
       "placeholderDeadline": "Ex. : dans les prochains mois, date à préciser",
       "placeholderDescription": "Présentez votre activité, votre besoin et les fonctionnalités ou contenus envisagés."
     },
-    "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
+    "about": {
+      "title": "À propos",
+      "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure.",
+      "lead": "Je suis Maguette Fall SEYE, développeuse full stack basée à Dakar. Passionnée par l’innovation, j’architecture des solutions robustes et j’intègre l’IA pour transformer les processus complexes en expériences fluides.",
+      "specialty": "Spécialiste Laravel, Vue.js et IA",
+      "experienceTitle": "Parcours professionnel",
+      "experience": [
+        {
+          "period": "Déc. 2023 — aujourd’hui",
+          "role": "Développeuse full stack",
+          "organization": "Ambassade de Belgique au Sénégal",
+          "text": "Maintenance et amélioration de la plateforme R8TS. Travail sur l’interopérabilité des systèmes et l’optimisation des performances."
+        },
+        {
+          "period": "Sept. 2022 — aujourd’hui",
+          "role": "Projets innovants et freelance",
+          "organization": "SeyeGarage, intégration OpenAI",
+          "text": "Conception d’architectures SaaS et intégration de modèles d’IA pour automatiser des processus métier complexes."
+        },
+        {
+          "period": "Janv. 2022 — août 2022",
+          "role": "Stagiaire développeuse full stack",
+          "organization": "Orange Digital Center",
+          "text": "Immersion dans des projets agiles et développement d’applications web réactives."
+        }
+      ],
+      "skillsTitle": "Expertises techniques",
+      "skills": [
+        {
+          "title": "Back-end",
+          "items": [
+            "PHP et Laravel (niveau expert)",
+            "Architecture d’API REST",
+            "Inertia.js et MySQL"
+          ]
+        },
+        {
+          "title": "Front-end",
+          "items": [
+            "Vue.js 3 (Composition API)",
+            "Tailwind CSS et Bootstrap",
+            "Interfaces réactives et UX"
+          ]
+        },
+        {
+          "title": "IA et innovation",
+          "items": [
+            "Intégration de l’API OpenAI",
+            "Prompt engineering",
+            "Automatisation de processus"
+          ]
+        }
+      ],
+      "linksTitle": "Me retrouver en ligne",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
     "contact": {
       "title": "Contact",
       "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application.",
@@ -123,6 +181,7 @@
       "success": "Votre message a bien été envoyé. Merci, je vous répondrai dès que possible.",
       "received": "Votre message a bien été reçu. Inutile de le renvoyer : je vous réponds dès que possible.",
       "detailsTitle": "Mes coordonnées",
+      "whatsapp": "Écrire sur WhatsApp",
       "missingDetails": "Les coordonnées directes ne sont pas encore configurées. Vous pouvez utiliser le formulaire pour me joindre."
     },
     "legal": {

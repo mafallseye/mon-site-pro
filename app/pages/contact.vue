@@ -6,7 +6,8 @@ const contactDetails = computed(() => ({
 	phone: config.public.contactPhone,
 	location: config.public.contactLocation
 }))
-const hasContactDetails = computed(() => Object.values(contactDetails.value).some(Boolean))
+const whatsappLink = useWhatsAppLink()
+const hasContactDetails = computed(() => Object.values(contactDetails.value).some(Boolean) || Boolean(whatsappLink.value))
 
 usePageSeo(
 	() => `${t('pages.contact.title')} | ${t('brand.name')}`,
@@ -24,6 +25,7 @@ usePageSeo(
 				<ul v-if="hasContactDetails" class="mt-5 space-y-4 text-small">
 					<li v-if="contactDetails.email"><a class="break-all underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent" :href="`mailto:${contactDetails.email}`">{{ contactDetails.email }}</a></li>
 					<li v-if="contactDetails.phone"><a class="underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent" :href="`tel:${contactDetails.phone.replace(/\s/g, '')}`">{{ contactDetails.phone }}</a></li>
+					<li v-if="whatsappLink"><a class="underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent" :href="whatsappLink" target="_blank" rel="noopener noreferrer">{{ t('pages.contact.whatsapp') }}</a></li>
 					<li v-if="contactDetails.location" class="text-on-primary-muted">{{ contactDetails.location }}</li>
 				</ul>
 				<p v-else class="mt-4 text-small text-on-primary-muted">{{ t('pages.contact.missingDetails') }}</p>

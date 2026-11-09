@@ -35,6 +35,7 @@ environnements *Production* et *Preview*). Ne jamais les commiter.
 | `NUXT_PUBLIC_CONTACT_EMAIL` | public | Email affiché (Contact, Mentions légales, Confidentialité) |
 | `NUXT_PUBLIC_CONTACT_PHONE` | public | Téléphone affiché (facultatif) |
 | `NUXT_PUBLIC_CONTACT_LOCATION` | public | Localisation affichée (facultatif) |
+| `NUXT_PUBLIC_CONTACT_WHATSAPP` | public | Numéro WhatsApp international (ex. `221XXXXXXXXX`), lien « Écrire sur WhatsApp » sur Contact et dans le footer (facultatif) |
 
 La clé Supabase est lue uniquement par les routes serveur via le `runtimeConfig` **privé**
 (`supabaseServiceRoleKey` dans `nuxt.config.ts`). Elle n'est jamais envoyée au navigateur :
