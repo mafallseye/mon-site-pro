@@ -140,7 +140,8 @@
           "title": "Back-end",
           "items": [
             "PHP et Laravel (niveau expert)",
-            "Architecture d’API REST",
+            "Python : Flask et Django",
+            "Création d’API REST documentées avec Swagger UI (OpenAPI)",
             "Inertia.js et MySQL"
           ]
         },
@@ -148,6 +149,8 @@
           "title": "Front-end",
           "items": [
             "Vue.js 3 (Composition API)",
+            "React",
+            "Intégration d’API dans Vue.js",
             "Tailwind CSS et Bootstrap",
             "Interfaces réactives et UX"
           ]
