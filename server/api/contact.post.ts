@@ -1,5 +1,6 @@
 import { contactSchema } from '../../shared/utils/form-schemas'
-import { deliverFormSubmission, enforceFormRateLimit, formErrorResponse, sendFormEmail } from '../utils/form-submission'
+import { deliverFormSubmission, enforceFormRateLimit, formErrorResponse, sendFormEmail, storeThenNotify } from '../utils/form-submission'
+import { insertSupabaseRow, NOTIFICATION_FAILED_STATUS, redactSupabaseError, toContactMessageRow, updateSupabaseStatus } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -34,10 +35,18 @@ export default defineEventHandler(async (event) => {
       payload.message
     ].join('\n')
 
+    const config = useRuntimeConfig(event)
+    const supabase = { url: config.supabaseUrl, serviceRoleKey: config.supabaseServiceRoleKey }
+
     return await deliverFormSubmission(
       payload.contact_pref_hp,
       payload.fillDurationMs,
-      () => sendFormEmail(payload, `Message de ${payload.name}`, text)
+      () => storeThenNotify({
+        store: () => insertSupabaseRow(supabase, 'contact_messages', toContactMessageRow(payload)),
+        notify: () => sendFormEmail(payload, `Message de ${payload.name}`, text),
+        markNotificationFailed: id => updateSupabaseStatus(supabase, 'contact_messages', id, NOTIFICATION_FAILED_STATUS),
+        describeError: error => redactSupabaseError(error, supabase)
+      })
     )
   } catch (error) {
     return formErrorResponse(event, error)

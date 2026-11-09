@@ -120,6 +120,44 @@ export async function deliverFormSubmission(
   return { success: true }
 }
 
+interface StoreThenNotifyOptions {
+  /** Enregistre la demande (Supabase) et renvoie son id. */
+  store: () => Promise<string>
+  /** Envoie l'email (Resend). Lève FormSubmissionError en cas d'échec. */
+  notify: () => Promise<void>
+  /** Marque la demande enregistrée quand l'email n'a pas pu partir. */
+  markNotificationFailed: (id: string) => Promise<void>
+  /** Rend un message d'erreur journalisable (sans secret). */
+  describeError: (error: unknown) => string
+}
+
+/**
+ * Enregistre la demande AVANT l'envoi de l'email :
+ * - si l'enregistrement échoue, l'erreur est journalisée et l'email part quand même ;
+ * - si l'email échoue, la demande reste enregistrée (statut « notification_echouee »)
+ *   et l'erreur est relancée pour que le visiteur voie un message clair.
+ * À appeler dans le callback de deliverFormSubmission, donc après les filtres anti-spam.
+ */
+export async function storeThenNotify(options: StoreThenNotifyOptions): Promise<void> {
+  let storedId: string | undefined
+  try {
+    storedId = await options.store()
+  } catch (error) {
+    console.error('[form-submission] Supabase storage failed:', options.describeError(error))
+  }
+
+  try {
+    await options.notify()
+  } catch (error) {
+    if (storedId) {
+      await options.markNotificationFailed(storedId).catch((statusError: unknown) => {
+        console.error('[form-submission] Supabase status update failed:', options.describeError(statusError))
+      })
+    }
+    throw error
+  }
+}
+
 export function formErrorResponse(event: H3Event, error: unknown) {
   if (error instanceof FormSubmissionError) {
     setResponseStatus(event, error.statusCode)
