@@ -1,196 +1,86 @@
 <script setup lang="ts">
 import { quoteSchema } from '../../shared/utils/form-schemas'
-import type { QuotePayload } from '../../shared/utils/form-schemas'
 import { budgetOptions, projectTypeOptions } from '../../shared/utils/form-options'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const localePath = useLocalePath()
-const form = reactive({
-  name: '',
-  email: '',
-  company: '',
-  projectType: '',
-  budget: '',
-  deadline: '',
-  description: '',
-  consent: false,
-  contact_pref_hp: ''
-})
-const formStartedAt = ref<number>()
-const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
-const fieldErrors = reactive<Record<string, string>>({})
-const errorMessage = ref('')
-
-onMounted(() => {
-  formStartedAt.value = performance.now()
+const { form, status, fieldErrors, errorMessage, clearFieldError, submitForm } = useFormSubmission({
+  schema: quoteSchema,
+  endpoint: '/api/devis',
+  initialValues: () => ({
+    name: '',
+    email: '',
+    company: '',
+    projectType: '',
+    budget: '',
+    deadline: '',
+    description: '',
+    consent: false,
+    contact_pref_hp: ''
+  }),
+  longTextField: 'description'
 })
 
 const priceExamples = computed(() => [0, 1, 2, 3].map(index => ({
   service: t(`quoteStartingPrices.${index}.service`),
   amount: t(`quoteStartingPrices.${index}.amount`)
 })))
-
-function clearFieldError(field: string) {
-  delete fieldErrors[field]
-  errorMessage.value = ''
-  if (status.value === 'error') status.value = 'idle'
-}
-
-function setValidationErrors(issues: Array<{ path: PropertyKey[], code: string }>) {
-  for (const issue of issues) {
-    const field = String(issue.path[0] || '')
-    if (!field || field === 'contact_pref_hp' || field === 'fillDurationMs') continue
-    const key = issue.code === 'invalid_format'
-      ? 'email'
-      : issue.code === 'too_small' && field === 'description'
-        ? 'tooShort'
-        : issue.code === 'invalid_type' || issue.code === 'too_small' || issue.code === 'invalid_value'
-          ? 'required'
-          : 'invalid'
-    fieldErrors[field] = t(`forms.errors.${key}`)
-  }
-}
-
-function handleApiError(error: unknown) {
-  const response = error as {
-    data?: {
-      data?: { code?: string, fieldErrors?: Record<string, string[]> }
-      statusCode?: number
-    }
-  }
-  const apiError = response.data?.data || response.data as { code?: string, fieldErrors?: Record<string, string[]> }
-  if (apiError?.fieldErrors) {
-    for (const [field, messages] of Object.entries(apiError.fieldErrors)) {
-      if (field === 'email') fieldErrors[field] = t('forms.errors.email')
-      else if (field === 'contact_pref_hp' || field === 'fillDurationMs') continue
-      else if (messages.length) fieldErrors[field] = t('forms.errors.invalid')
-    }
-  }
-
-  const code = apiError?.code
-  errorMessage.value = code === 'RATE_LIMITED'
-    ? t('forms.errors.rateLimited')
-    : code === 'MAIL_NOT_CONFIGURED' || code === 'MAIL_DELIVERY_FAILED'
-      ? t('forms.errors.unavailable')
-      : code === 'VALIDATION_ERROR'
-        ? t('forms.errors.invalid')
-        : t('forms.errors.sendFailed')
-  status.value = 'error'
-}
-
-async function submitForm() {
-  errorMessage.value = ''
-  for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
-
-  const fillDurationMs = formStartedAt.value === undefined
-    ? undefined
-    : performance.now() - formStartedAt.value
-  const parsed = quoteSchema.safeParse({ ...form, language: locale.value, fillDurationMs })
-  if (!parsed.success) {
-    setValidationErrors(parsed.error.issues)
-    status.value = 'error'
-    errorMessage.value = t('forms.errors.invalid')
-    await nextTick()
-    document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
-    return
-  }
-
-  status.value = 'loading'
-  try {
-    await $fetch('/api/devis', { method: 'POST', body: parsed.data as QuotePayload })
-    status.value = 'success'
-    Object.assign(form, {
-      name: '', email: '', company: '', projectType: '', budget: '', deadline: '', description: '', consent: false,
-      contact_pref_hp: ''
-    })
-    formStartedAt.value = performance.now()
-  } catch (error) {
-    handleApiError(error)
-  }
-}
 </script>
 
 <template>
-  <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-    <h2 class="text-2xl font-bold text-primary">{{ t('pages.quote.formTitle') }}</h2>
-    <p class="mt-2 text-sm text-slate-600">{{ t('pages.quote.formIntro') }}</p>
+  <section class="rounded-card border border-line bg-surface p-6 shadow-card md:p-8">
+    <h2 class="text-h2 text-primary">{{ t('pages.quote.formTitle') }}</h2>
+    <p class="mt-2 text-small text-ink-muted">{{ t('pages.quote.formIntro') }}</p>
 
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      <article v-for="price in priceExamples" :key="price.service" class="rounded-xl bg-surface p-4">
-        <h3 class="text-sm font-semibold text-primary">{{ price.service }}</h3>
-        <p class="mt-2 text-lg font-bold text-primary-light"><span class="text-xs font-medium text-slate-600">{{ t('pages.quote.startingAt') }}</span> {{ price.amount }}</p>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <article v-for="price in priceExamples" :key="price.service" class="rounded-control bg-surface-muted p-4">
+        <h3 class="text-small font-semibold text-primary">{{ price.service }}</h3>
+        <p class="mt-2 text-stat font-semibold tabular-nums text-ink">
+          <span class="text-small font-normal text-ink-muted">{{ t('pages.quote.startingAt') }}</span> {{ price.amount }}
+        </p>
       </article>
     </div>
-    <p class="mt-4 text-xs leading-5 text-slate-600">{{ t('pages.quote.disclaimer') }}</p>
+    <p class="mt-4 flex items-start gap-2 text-small text-ink-muted">
+      <span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-badge bg-accent" />
+      <span>{{ t('pages.quote.disclaimer') }}</span>
+    </p>
 
-    <form class="mt-8 space-y-5" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
-      <div class="pointer-events-none h-px w-px overflow-hidden" style="position: absolute; left: -10000px;" aria-hidden="true" inert>
-        <label for="quote-contact-pref-hp" aria-hidden="true">{{ t('forms.honeypotLabel') }}</label>
-        <input id="quote-contact-pref-hp" v-model="form.contact_pref_hp" type="text" name="contact_pref_hp" tabindex="-1" aria-hidden="true" autocomplete="off">
+    <form class="mt-8 space-y-5 border-t border-line pt-8" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
+      <FormHoneypot id="quote-contact-pref-hp" v-model="form.contact_pref_hp" />
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <FormField id="quote-name" v-model="form.name" :label="t('pages.quote.name')" required :error="fieldErrors.name" name="name" autocomplete="name" maxlength="120" :placeholder="t('pages.quote.placeholderName')" @input="clearFieldError('name')" />
+        <FormField id="quote-email" v-model="form.email" :label="t('pages.quote.email')" required :error="fieldErrors.email" name="email" type="email" autocomplete="email" maxlength="254" :placeholder="t('pages.quote.placeholderEmail')" @input="clearFieldError('email')" />
+        <FormField id="quote-company" v-model="form.company" :label="t('pages.quote.company')" :optional-label="t('pages.quote.companyOptional')" :error="fieldErrors.company" name="company" autocomplete="organization" maxlength="160" :placeholder="t('pages.quote.placeholderCompany')" @input="clearFieldError('company')" />
+        <FormField id="quote-project-type" v-model="form.projectType" as="select" :label="t('pages.quote.projectType')" required :error="fieldErrors.projectType" name="projectType" @change="clearFieldError('projectType')">
+          <option value="" disabled>{{ t('forms.projectTypes.choose') }}</option>
+          <option v-for="option in projectTypeOptions" :key="option.value" :value="option.value">{{ t(`forms.projectTypes.${option.messageKey}`) }}</option>
+        </FormField>
+        <FormField id="quote-budget" v-model="form.budget" as="select" :label="t('pages.quote.budget')" required :error="fieldErrors.budget" name="budget" @change="clearFieldError('budget')">
+          <option value="" disabled>{{ t('forms.budgets.choose') }}</option>
+          <option v-for="option in budgetOptions" :key="option.value" :value="option.value">{{ t(`forms.budgets.${option.messageKey}`) }}</option>
+        </FormField>
+        <FormField id="quote-deadline" v-model="form.deadline" :label="t('pages.quote.deadline')" required :error="fieldErrors.deadline" name="deadline" maxlength="120" :placeholder="t('pages.quote.placeholderDeadline')" @input="clearFieldError('deadline')" />
       </div>
 
-      <div class="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label for="quote-name" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.name') }} <span aria-hidden="true">*</span></label>
-          <input id="quote-name" v-model="form.name" name="name" autocomplete="name" required maxlength="120" :aria-invalid="Boolean(fieldErrors.name)" :aria-describedby="fieldErrors.name ? 'quote-name-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderName')" @input="clearFieldError('name')">
-          <p v-if="fieldErrors.name" id="quote-name-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.name }}</p>
-        </div>
-        <div>
-          <label for="quote-email" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.email') }} <span aria-hidden="true">*</span></label>
-          <input id="quote-email" v-model="form.email" name="email" type="email" autocomplete="email" required maxlength="254" :aria-invalid="Boolean(fieldErrors.email)" :aria-describedby="fieldErrors.email ? 'quote-email-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderEmail')" @input="clearFieldError('email')">
-          <p v-if="fieldErrors.email" id="quote-email-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.email }}</p>
-        </div>
-        <div>
-          <label for="quote-company" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.company') }} <span class="font-normal text-slate-600">({{ t('pages.quote.companyOptional') }})</span></label>
-          <input id="quote-company" v-model="form.company" name="company" autocomplete="organization" maxlength="160" :aria-invalid="Boolean(fieldErrors.company)" :aria-describedby="fieldErrors.company ? 'quote-company-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderCompany')" @input="clearFieldError('company')">
-          <p v-if="fieldErrors.company" id="quote-company-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.company }}</p>
-        </div>
-        <div>
-          <label for="quote-project-type" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.projectType') }} <span aria-hidden="true">*</span></label>
-          <select id="quote-project-type" v-model="form.projectType" name="projectType" required :aria-invalid="Boolean(fieldErrors.projectType)" :aria-describedby="fieldErrors.projectType ? 'quote-project-type-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" @change="clearFieldError('projectType')">
-            <option value="" disabled>{{ t('forms.projectTypes.choose') }}</option>
-            <option v-for="option in projectTypeOptions" :key="option.value" :value="option.value">{{ t(`forms.projectTypes.${option.messageKey}`) }}</option>
-          </select>
-          <p v-if="fieldErrors.projectType" id="quote-project-type-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.projectType }}</p>
-        </div>
-        <div>
-          <label for="quote-budget" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.budget') }} <span aria-hidden="true">*</span></label>
-          <select id="quote-budget" v-model="form.budget" name="budget" required :aria-invalid="Boolean(fieldErrors.budget)" :aria-describedby="fieldErrors.budget ? 'quote-budget-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" @change="clearFieldError('budget')">
-            <option value="" disabled>{{ t('forms.budgets.choose') }}</option>
-            <option v-for="option in budgetOptions" :key="option.value" :value="option.value">{{ t(`forms.budgets.${option.messageKey}`) }}</option>
-          </select>
-          <p v-if="fieldErrors.budget" id="quote-budget-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.budget }}</p>
-        </div>
-        <div>
-          <label for="quote-deadline" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.deadline') }} <span aria-hidden="true">*</span></label>
-          <input id="quote-deadline" v-model="form.deadline" name="deadline" required maxlength="120" :aria-invalid="Boolean(fieldErrors.deadline)" :aria-describedby="fieldErrors.deadline ? 'quote-deadline-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderDeadline')" @input="clearFieldError('deadline')">
-          <p v-if="fieldErrors.deadline" id="quote-deadline-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.deadline }}</p>
-        </div>
-      </div>
-
-      <div>
-        <label for="quote-description" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.quote.descriptionLabel') }} <span aria-hidden="true">*</span></label>
-        <textarea id="quote-description" v-model="form.description" name="description" required minlength="20" maxlength="5000" rows="6" :aria-invalid="Boolean(fieldErrors.description)" :aria-describedby="fieldErrors.description ? 'quote-description-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.quote.placeholderDescription')" @input="clearFieldError('description')" />
-        <p v-if="fieldErrors.description" id="quote-description-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.description }}</p>
-      </div>
+      <FormField id="quote-description" v-model="form.description" as="textarea" :label="t('pages.quote.descriptionLabel')" required :error="fieldErrors.description" name="description" minlength="20" maxlength="5000" rows="6" :placeholder="t('pages.quote.placeholderDescription')" @input="clearFieldError('description')" />
 
       <div>
         <div class="flex items-start gap-3">
-          <input id="quote-consent" v-model="form.consent" name="consent" type="checkbox" required :aria-invalid="Boolean(fieldErrors.consent)" :aria-describedby="fieldErrors.consent ? 'quote-consent-error' : undefined" class="mt-1 size-4 rounded border-slate-300 text-primary focus:ring-primary" @change="clearFieldError('consent')">
-          <label for="quote-consent" class="text-sm leading-6 text-slate-600">
+          <input id="quote-consent" v-model="form.consent" name="consent" type="checkbox" required :aria-invalid="Boolean(fieldErrors.consent)" :aria-describedby="fieldErrors.consent ? 'quote-consent-error' : undefined" class="mt-1 size-5 shrink-0 cursor-pointer accent-primary" @change="clearFieldError('consent')">
+          <label for="quote-consent" class="cursor-pointer py-0.5 text-small text-ink">
             {{ t('pages.quote.consentBefore') }}
-            <NuxtLink :to="localePath('/politique-de-confidentialite')" class="font-semibold text-primary underline underline-offset-2">{{ t('pages.quote.consentLink') }}</NuxtLink>{{ t('pages.quote.consentAfter') }} <span aria-hidden="true">*</span>
+            <NuxtLink :to="localePath('/politique-de-confidentialite')" class="font-semibold text-primary underline decoration-2 underline-offset-2 hover:text-primary-strong">{{ t('pages.quote.consentLink') }}</NuxtLink>{{ t('pages.quote.consentAfter') }} <span aria-hidden="true">*</span>
           </label>
         </div>
-        <p v-if="fieldErrors.consent" id="quote-consent-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.consent }}</p>
+        <FormFieldError v-if="fieldErrors.consent" id="quote-consent-error" :message="fieldErrors.consent" />
       </div>
 
-      <p v-if="errorMessage" role="alert" class="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">{{ errorMessage }}</p>
-      <p v-if="status === 'success'" role="status" aria-live="polite" class="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">{{ t('pages.quote.success') }}</p>
-      <button type="submit" :disabled="status === 'loading'" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-accent px-6 py-3 font-bold text-primary transition hover:bg-amber-400 focus-visible:outline-offset-4 disabled:cursor-wait disabled:opacity-60 sm:w-auto">
-        <span v-if="status === 'loading'">{{ t('pages.quote.sending') }}</span>
-        <span v-else>{{ t('pages.quote.submit') }}</span>
-      </button>
+      <FormAlert v-if="errorMessage" tone="error">{{ errorMessage }}</FormAlert>
+      <FormAlert v-if="status === 'success'" tone="success">{{ t('pages.quote.success') }}</FormAlert>
+      <AppButton type="submit" block :disabled="status === 'loading'">
+        {{ status === 'loading' ? t('pages.quote.sending') : t('pages.quote.submit') }}
+      </AppButton>
     </form>
   </section>
 </template>

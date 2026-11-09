@@ -25,10 +25,10 @@ const languages = [
       :aria-label="t(`languageSwitcher.${language.key}`)"
       :aria-current="locale === language.code ? 'page' : undefined"
       :class="[
-        'inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2 text-sm font-bold transition focus-visible:outline-offset-2',
+        'inline-flex min-h-tap min-w-tap items-center justify-center rounded-control px-2 text-small font-semibold transition-colors',
         variant === 'dark'
-          ? (locale === language.code ? 'bg-white text-primary' : 'text-white hover:bg-white/15')
-          : (locale === language.code ? 'bg-primary text-white' : 'text-primary hover:bg-surface')
+          ? (locale === language.code ? 'bg-accent text-dark-bg' : 'text-dark-ink hover:bg-dark-line')
+          : (locale === language.code ? 'bg-primary text-on-primary' : 'text-primary hover:bg-primary-soft')
       ]"
     >
       {{ language.label }}

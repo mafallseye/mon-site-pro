@@ -88,15 +88,7 @@ useHead({
         <NuxtLink :to="localePath('/realisations')" class="font-semibold text-primary-light underline decoration-accent decoration-2 underline-offset-4">{{ t('pages.home.seeProjects') }}</NuxtLink>
       </div>
       <div class="mt-9 grid gap-6 md:grid-cols-2">
-        <article v-for="project in projects || []" :key="project.slug" class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-          <div class="flex aspect-[16/8] items-center justify-center bg-slate-100 px-6 text-center text-sm text-slate-600">{{ t('pages.portfolio.imagePlaceholder') }}</div>
-          <div class="p-6">
-            <p class="text-sm font-semibold text-primary-light">{{ project.sector }}</p>
-            <h3 class="mt-2 text-2xl font-bold text-primary">{{ project.title }}</h3>
-            <p class="mt-3 leading-7 text-slate-600">{{ project.summary }}</p>
-            <NuxtLink :to="localePath(`/realisations/${project.slug}`)" class="mt-5 inline-flex font-semibold text-primary-light underline decoration-accent decoration-2 underline-offset-4">{{ t('pages.portfolio.viewProject') }}</NuxtLink>
-          </div>
-        </article>
+        <ProjectCard v-for="project in projects || []" :key="project.slug" :project="project" />
       </div>
     </div>
   </section>

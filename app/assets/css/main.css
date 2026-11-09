@@ -95,6 +95,8 @@
   --container-steps: 48rem;
   --container-form: 56rem;
   --container-aside: 20rem;
+  --aspect-card: 16 / 10;
+  --aspect-wide: 16 / 7;
   --min-width-page: 320px;
 }
 
