@@ -131,7 +131,7 @@ describe('POST /api/devis', () => {
     }
   })
 
-  it('garde la demande, la marque « notification_echouee » et renvoie MAIL_DELIVERY_FAILED si Resend échoue', async () => {
+  it('Resend échoue : demande gardée, marquée « notification_echouee », réponse 202 « bien reçue »', async () => {
     fetchMock
       .mockResolvedValueOnce(supabaseInsertOk('uuid-9'))
       .mockResolvedValueOnce(new Response(null, { status: 204 }))
@@ -139,22 +139,44 @@ describe('POST /api/devis', () => {
 
     const e = event(quoteBody)
     const response = await devis(e)
-    expect(e.status).toBe(502)
-    expect(response).toMatchObject({ success: false, code: 'MAIL_DELIVERY_FAILED' })
+    expect(e.status).toBe(202)
+    expect(response).toEqual({ success: true, code: 'STORED_NOTIFICATION_FAILED', message: 'Votre demande a bien été reçue.' })
 
     const [patchUrl, patchInit] = fetchMock.mock.calls[1]!
     expect(patchUrl).toBe('https://projet.supabase.co/rest/v1/quote_requests?id=eq.uuid-9')
     expect(JSON.parse(patchInit.body)).toEqual({ status: 'notification_echouee' })
   })
 
-  it('renvoie MAIL_NOT_CONFIGURED (demande enregistrée) si Resend n’est pas configuré', async () => {
+  it('Resend non configuré mais demande enregistrée : réponse 202 « bien reçue »', async () => {
     vi.stubEnv('RESEND_API_KEY', '')
     fetchMock.mockResolvedValueOnce(supabaseInsertOk('uuid-3')).mockResolvedValueOnce(new Response(null, { status: 204 }))
 
     const e = event(quoteBody)
-    expect(await devis(e)).toMatchObject({ success: false, code: 'MAIL_NOT_CONFIGURED' })
-    expect(e.status).toBe(500)
+    expect(await devis(e)).toMatchObject({ success: true, code: 'STORED_NOTIFICATION_FAILED' })
+    expect(e.status).toBe(202)
     expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('Supabase ET Resend échouent : erreur MAIL_DELIVERY_FAILED (le visiteur doit réessayer)', async () => {
+    fetchMock.mockRejectedValue(new Error('Supabase indisponible'))
+    resendSend.mockResolvedValue({ data: null, error: { name: 'application_error', message: 'boom' } })
+
+    const e = event(quoteBody)
+    expect(await devis(e)).toMatchObject({ success: false, code: 'MAIL_DELIVERY_FAILED' })
+    expect(e.status).toBe(502)
+  })
+
+  it('Supabase non configuré ET Resend non configuré : erreur MAIL_NOT_CONFIGURED', async () => {
+    const saved = { ...runtimeConfig }
+    runtimeConfig.supabaseUrl = ''
+    vi.stubEnv('RESEND_API_KEY', '')
+    try {
+      const e = event(quoteBody)
+      expect(await devis(e)).toMatchObject({ success: false, code: 'MAIL_NOT_CONFIGURED' })
+      expect(e.status).toBe(500)
+    } finally {
+      Object.assign(runtimeConfig, saved)
+    }
   })
 
   it.each([
@@ -193,13 +215,13 @@ describe('POST /api/contact', () => {
     expect(resendSend).toHaveBeenCalledOnce()
   })
 
-  it('garde le message et renvoie une erreur claire si Resend échoue', async () => {
+  it('Resend échoue : message gardé, réponse 202 « bien reçu »', async () => {
     fetchMock.mockResolvedValueOnce(supabaseInsertOk('uuid-c')).mockResolvedValueOnce(new Response(null, { status: 204 }))
     resendSend.mockRejectedValue(new Error('network down'))
 
     const e = event(contactBody)
-    expect(await contact(e)).toMatchObject({ success: false, code: 'MAIL_DELIVERY_FAILED' })
-    expect(e.status).toBe(502)
+    expect(await contact(e)).toMatchObject({ success: true, code: 'STORED_NOTIFICATION_FAILED' })
+    expect(e.status).toBe(202)
     expect(JSON.parse(fetchMock.mock.calls[1]![1].body)).toEqual({ status: 'notification_echouee' })
   })
 

@@ -8,15 +8,16 @@ afterEach(() => {
 })
 
 describe('storeThenNotify', () => {
-  it('enregistre avant d’envoyer l’email', async () => {
+  it('enregistre avant d’envoyer l’email (issue « delivered »)', async () => {
     const calls: string[] = []
-    await storeThenNotify({
+    const outcome = await storeThenNotify({
       store: async () => { calls.push('store'); return 'id-1' },
       notify: async () => { calls.push('notify') },
       markNotificationFailed: async () => { calls.push('mark') },
       describeError
     })
     expect(calls).toEqual(['store', 'notify'])
+    expect(outcome).toBe('delivered')
   })
 
   it('envoie l’email même si Supabase échoue, et journalise l’erreur', async () => {
@@ -29,14 +30,15 @@ describe('storeThenNotify', () => {
       notify,
       markNotificationFailed,
       describeError
-    })).resolves.toBeUndefined()
+    })).resolves.toBe('delivered')
 
     expect(notify).toHaveBeenCalledOnce()
     expect(markNotificationFailed).not.toHaveBeenCalled()
     expect(consoleError).toHaveBeenCalledWith('[form-submission] Supabase storage failed:', 'Error: Supabase indisponible')
   })
 
-  it('garde la demande enregistrée, la marque et relance l’erreur si Resend échoue', async () => {
+  it('Resend échoue mais demande enregistrée : statut marqué, issue « stored_only » (pas d’erreur)', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
     const mailError = new FormSubmissionError(502, 'MAIL_DELIVERY_FAILED', 'Votre message n’a pas pu être envoyé.')
     const markNotificationFailed = vi.fn().mockResolvedValue(undefined)
 
@@ -45,12 +47,12 @@ describe('storeThenNotify', () => {
       notify: () => Promise.reject(mailError),
       markNotificationFailed,
       describeError
-    })).rejects.toBe(mailError)
+    })).resolves.toBe('stored_only')
 
     expect(markNotificationFailed).toHaveBeenCalledWith('id-42')
   })
 
-  it('relance l’erreur Resend même si la mise à jour du statut échoue', async () => {
+  it('« stored_only » même si la mise à jour du statut échoue (erreur journalisée)', async () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     const mailError = new FormSubmissionError(500, 'MAIL_NOT_CONFIGURED', 'Indisponible')
 
@@ -59,9 +61,24 @@ describe('storeThenNotify', () => {
       notify: () => Promise.reject(mailError),
       markNotificationFailed: () => Promise.reject(new Error('PATCH refusé')),
       describeError
-    })).rejects.toBe(mailError)
+    })).resolves.toBe('stored_only')
 
     expect(consoleError).toHaveBeenCalledWith('[form-submission] Supabase status update failed:', 'Error: PATCH refusé')
+  })
+
+  it('Resend ET Supabase échouent : l’erreur Resend est relancée (rien n’est enregistré)', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    const mailError = new FormSubmissionError(502, 'MAIL_DELIVERY_FAILED', 'Votre message n’a pas pu être envoyé.')
+    const markNotificationFailed = vi.fn()
+
+    await expect(storeThenNotify({
+      store: () => Promise.reject(new Error('Supabase indisponible')),
+      notify: () => Promise.reject(mailError),
+      markNotificationFailed,
+      describeError
+    })).rejects.toBe(mailError)
+
+    expect(markNotificationFailed).not.toHaveBeenCalled()
   })
 })
 

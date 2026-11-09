@@ -79,8 +79,14 @@ avec `shared/utils/form-schemas.ts` et `shared/utils/form-options.ts`.
    - en cas d'échec (Supabase indisponible ou non configuré), l'erreur est journalisée
      (sans la clé) et **l'email part quand même** ;
 4. envoi de l'email Resend ;
-   - en cas d'échec, la demande **reste enregistrée** (statut `notification_echouee`) et le
-     visiteur voit un message d'erreur clair (`MAIL_DELIVERY_FAILED` ou `MAIL_NOT_CONFIGURED`).
+   - en cas d'échec alors que la demande est enregistrée : statut `notification_echouee`,
+     réponse HTTP 202 `STORED_NOTIFICATION_FAILED`, et le visiteur voit « Votre demande a bien
+     été reçue. Inutile de la renvoyer… » (le formulaire se vide, pas de doublon) ;
+   - en cas d'échec alors que rien n'a pu être enregistré : message d'erreur
+     (`MAIL_DELIVERY_FAILED` ou `MAIL_NOT_CONFIGURED`) invitant à réessayer.
+
+Pensez à consulter régulièrement les lignes `notification_echouee` dans Supabase : aucune
+notification email n'a été envoyée pour elles.
 
 Limite connue : la limitation de débit est en mémoire, donc propre à chaque instance serverless
 sur Vercel (protection partielle).

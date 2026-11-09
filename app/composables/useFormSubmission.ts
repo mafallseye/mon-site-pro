@@ -1,6 +1,7 @@
 import type { ZodType } from 'zod'
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error'
+/** 'received' : demande enregistrée mais email non envoyé (réponse 202 STORED_NOTIFICATION_FAILED). */
+type FormStatus = 'idle' | 'loading' | 'success' | 'received' | 'error'
 
 interface ApiErrorBody {
   code?: string
@@ -102,8 +103,8 @@ export function useFormSubmission<T extends Record<string, unknown>>(options: Fo
 
     status.value = 'loading'
     try {
-      await $fetch(options.endpoint, { method: 'POST', body: parsed.data as Record<string, unknown> })
-      status.value = 'success'
+      const response = await $fetch<{ success: boolean, code?: string }>(options.endpoint, { method: 'POST', body: parsed.data as Record<string, unknown> })
+      status.value = response?.code === 'STORED_NOTIFICATION_FAILED' ? 'received' : 'success'
       Object.assign(form, options.initialValues())
       formStartedAt.value = performance.now()
     } catch (error) {

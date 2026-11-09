@@ -131,14 +131,22 @@ interface StoreThenNotifyOptions {
   describeError: (error: unknown) => string
 }
 
+/** Issue d'une soumission : email envoyé, ou demande enregistrée mais email non envoyé. */
+export type SubmissionOutcome = 'delivered' | 'stored_only'
+
+/** Code renvoyé (HTTP 202) quand la demande est enregistrée mais que l'email n'a pas pu partir. */
+export const STORED_NOTIFICATION_FAILED = 'STORED_NOTIFICATION_FAILED'
+
 /**
  * Enregistre la demande AVANT l'envoi de l'email :
  * - si l'enregistrement échoue, l'erreur est journalisée et l'email part quand même ;
- * - si l'email échoue, la demande reste enregistrée (statut « notification_echouee »)
- *   et l'erreur est relancée pour que le visiteur voie un message clair.
+ * - si l'email échoue alors que la demande est enregistrée : statut « notification_echouee »
+ *   et issue « stored_only » (le visiteur voit « demande bien reçue », inutile de renvoyer) ;
+ * - si l'email échoue et que rien n'a été enregistré : l'erreur Resend est relancée
+ *   (le visiteur voit un message d'erreur et peut réessayer).
  * À appeler dans le callback de deliverFormSubmission, donc après les filtres anti-spam.
  */
-export async function storeThenNotify(options: StoreThenNotifyOptions): Promise<void> {
+export async function storeThenNotify(options: StoreThenNotifyOptions): Promise<SubmissionOutcome> {
   let storedId: string | undefined
   try {
     storedId = await options.store()
@@ -148,14 +156,22 @@ export async function storeThenNotify(options: StoreThenNotifyOptions): Promise<
 
   try {
     await options.notify()
+    return 'delivered'
   } catch (error) {
-    if (storedId) {
-      await options.markNotificationFailed(storedId).catch((statusError: unknown) => {
-        console.error('[form-submission] Supabase status update failed:', options.describeError(statusError))
-      })
-    }
-    throw error
+    if (!storedId) throw error
+
+    console.error(`[form-submission] Email non envoyé, demande enregistrée (id ${storedId}) avec le statut notification_echouee`)
+    await options.markNotificationFailed(storedId).catch((statusError: unknown) => {
+      console.error('[form-submission] Supabase status update failed:', options.describeError(statusError))
+    })
+    return 'stored_only'
   }
+}
+
+/** Réponse renvoyée au navigateur quand la demande est enregistrée mais que l'email a échoué. */
+export function storedOnlyResponse(event: H3Event) {
+  setResponseStatus(event, 202)
+  return { success: true, code: STORED_NOTIFICATION_FAILED, message: 'Votre demande a bien été reçue.' }
 }
 
 export function formErrorResponse(event: H3Event, error: unknown) {

@@ -99,6 +99,7 @@
       "submit": "Send my request",
       "sending": "Sending…",
       "success": "Your request has been sent. Thank you — I’ll be in touch.",
+      "received": "Your request has been received. No need to send it again — I’ll get back to you as soon as I can.",
       "placeholderName": "Your name",
       "placeholderEmail": "you{'@'}example.com",
       "placeholderCompany": "Your company name",
@@ -120,6 +121,7 @@
       "submit": "Send message",
       "sending": "Sending…",
       "success": "Your message has been sent. Thank you — I’ll reply as soon as I can.",
+      "received": "Your message has been received. No need to send it again — I’ll reply as soon as I can.",
       "detailsTitle": "Contact details",
       "missingDetails": "Direct contact details have not been configured yet. Please use the form to get in touch."
     },

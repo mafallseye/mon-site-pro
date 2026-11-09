@@ -1,7 +1,8 @@
 import { quoteSchema } from '../../shared/utils/form-schemas'
 import { budgetOptions, projectTypeOptions } from '../../shared/utils/form-options'
 import fr from '../../i18n/locales/fr.json'
-import { deliverFormSubmission, enforceFormRateLimit, formErrorResponse, sendFormEmail, storeThenNotify } from '../utils/form-submission'
+import { deliverFormSubmission, enforceFormRateLimit, formErrorResponse, sendFormEmail, storedOnlyResponse, storeThenNotify } from '../utils/form-submission'
+import type { SubmissionOutcome } from '../utils/form-submission'
 import { insertSupabaseRow, NOTIFICATION_FAILED_STATUS, redactSupabaseError, toQuoteRequestRow, updateSupabaseStatus } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
@@ -50,16 +51,21 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event)
     const supabase = { url: config.supabaseUrl, serviceRoleKey: config.supabaseServiceRoleKey }
 
-    return await deliverFormSubmission(
+    let outcome: SubmissionOutcome | undefined
+    const response = await deliverFormSubmission(
       payload.contact_pref_hp,
       payload.fillDurationMs,
-      () => storeThenNotify({
-        store: () => insertSupabaseRow(supabase, 'quote_requests', toQuoteRequestRow(payload)),
-        notify: () => sendFormEmail(payload, `Devis : ${projectTypeLabel}, ${payload.name}${companySuffix}`, text),
-        markNotificationFailed: id => updateSupabaseStatus(supabase, 'quote_requests', id, NOTIFICATION_FAILED_STATUS),
-        describeError: error => redactSupabaseError(error, supabase)
-      })
+      async () => {
+        outcome = await storeThenNotify({
+          store: () => insertSupabaseRow(supabase, 'quote_requests', toQuoteRequestRow(payload)),
+          notify: () => sendFormEmail(payload, `Devis : ${projectTypeLabel}, ${payload.name}${companySuffix}`, text),
+          markNotificationFailed: id => updateSupabaseStatus(supabase, 'quote_requests', id, NOTIFICATION_FAILED_STATUS),
+          describeError: error => redactSupabaseError(error, supabase)
+        })
+      }
     )
+
+    return outcome === 'stored_only' ? storedOnlyResponse(event) : response
   } catch (error) {
     return formErrorResponse(event, error)
   }

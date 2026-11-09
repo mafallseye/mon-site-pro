@@ -91,11 +91,16 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 - Réponses d'erreur : `{ success: false, code, message, fieldErrors? }` avec les codes
   `VALIDATION_ERROR`, `RATE_LIMITED`, `MAIL_NOT_CONFIGURED`, `MAIL_DELIVERY_FAILED`,
   `INTERNAL_ERROR`. Les composants traduisent ces codes via `forms.errors.*`.
+- Cas particulier : demande enregistrée dans Supabase mais email Resend en échec → HTTP 202
+  `{ success: true, code: 'STORED_NOTIFICATION_FAILED' }` ; le formulaire passe en état
+  `received`, se vide et affiche `pages.quote.received` / `pages.contact.received`
+  (« bien reçue, inutile de renvoyer »).
 - Enregistrement : dans le callback de `deliverFormSubmission` (donc APRÈS l'anti-spam),
   `storeThenNotify` (`server/utils/form-submission.ts`) insère d'abord dans Supabase
   (`server/utils/supabase.ts`, tables `quote_requests` / `contact_messages`) puis envoie l'email.
-  Échec Supabase → journalisé (clé masquée), l'email part quand même. Échec Resend → la ligne
-  reste enregistrée avec `status = 'notification_echouee'` et l'erreur Resend est renvoyée.
+  Échec Supabase → journalisé (clé masquée), l'email part quand même. Échec Resend avec ligne
+  enregistrée → `status = 'notification_echouee'` et réponse 202 `STORED_NOTIFICATION_FAILED`.
+  Échec Resend sans ligne enregistrée → l'erreur Resend est renvoyée (le visiteur doit réessayer).
 - Supabase : migrations SQL dans `supabase/migrations` ; RLS activée sans aucune politique
   (aucun accès anon/authenticated). Les listes `project_type` / `budget` / `language` du SQL
   doivent rester synchronisées avec `z.enum` et `form-options.ts`.
