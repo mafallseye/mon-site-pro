@@ -2,17 +2,17 @@
 title: Belemb.eu
 slug: belemb-eu
 language: fr
-client: Belemb.eu
-sector: Missions économiques et réseautage B2B
+client: Ambassade de Belgique au Sénégal
+sector: Site institutionnel et missions économiques
 technologies:
   - Vue.js
   - Tailwind CSS
 link: https://belemb.eu
-summary: Plateforme de missions économiques et de réseautage B2B entre entreprises étrangères et d’Afrique de l’Ouest.
+summary: Site institutionnel de l’Ambassade de Belgique au Sénégal, mis à jour chaque année pour chaque mission économique.
 featured: true
 image: /realisations/belemb-eu-desktop.webp
 imageMobile: /realisations/belemb-eu-mobile.webp
 ---
 
-Collaboration depuis 2023 autour de la conception et du développement du site.
-Une page est créée pour chaque mission économique.
+Site conçu et développé pour l’Ambassade de Belgique au Sénégal depuis 2023.
+Chaque année, le site est mis à jour pour chaque mission économique, avec une page dédiée.
