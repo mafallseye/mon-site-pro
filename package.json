@@ -1,6 +1,9 @@
 {
   "name": "mon-site-pro",
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "private": true,
   "scripts": {
     "build": "nuxt build",
