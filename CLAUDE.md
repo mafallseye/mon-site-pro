@@ -12,8 +12,9 @@ Le but principal : convertir les visiteurs en demandes de devis.
 - Nuxt Content v3 pour les réalisations (fichiers Markdown, connecteur SQLite natif)
 - Validation des formulaires avec Zod (schémas partagés client/serveur)
 - Envoi d'emails via Resend (routes serveur dans `server/api`)
+- Enregistrement des formulaires dans Supabase (API REST, clé service_role côté serveur)
 - Tests : Vitest
-- Déploiement : Vercel
+- Déploiement : Vercel (preset Nitro `vercel`, Node 22 LTS via `engines`)
 
 ## Conventions
 - Composants dans `app/components`, un composant = un fichier, noms en PascalCase
@@ -90,10 +91,21 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 - Réponses d'erreur : `{ success: false, code, message, fieldErrors? }` avec les codes
   `VALIDATION_ERROR`, `RATE_LIMITED`, `MAIL_NOT_CONFIGURED`, `MAIL_DELIVERY_FAILED`,
   `INTERNAL_ERROR`. Les composants traduisent ces codes via `forms.errors.*`.
-- Tests dans `shared/utils/form-schemas.test.ts`.
+- Enregistrement : dans le callback de `deliverFormSubmission` (donc APRÈS l'anti-spam),
+  `storeThenNotify` (`server/utils/form-submission.ts`) insère d'abord dans Supabase
+  (`server/utils/supabase.ts`, tables `quote_requests` / `contact_messages`) puis envoie l'email.
+  Échec Supabase → journalisé (clé masquée), l'email part quand même. Échec Resend → la ligne
+  reste enregistrée avec `status = 'notification_echouee'` et l'erreur Resend est renvoyée.
+- Supabase : migrations SQL dans `supabase/migrations` ; RLS activée sans aucune politique
+  (aucun accès anon/authenticated). Les listes `project_type` / `budget` / `language` du SQL
+  doivent rester synchronisées avec `z.enum` et `form-options.ts`.
+- Tests : `shared/utils/form-schemas.test.ts`, `server/utils/*.test.ts`,
+  `server/api/form-routes.test.ts` (routes de bout en bout, globals Nitro, Resend et fetch simulés).
 
 ### Variables d'environnement (voir `.env.example`)
 - Serveur (secrets) : `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`
+- Serveur, runtimeConfig PRIVÉ : `NUXT_SUPABASE_URL`, `NUXT_SUPABASE_SERVICE_ROLE_KEY`
+  (`supabaseUrl` / `supabaseServiceRoleKey`, lus avec `useRuntimeConfig(event)` ; jamais dans `public`)
 - Publiques (`runtimeConfig.public`) : `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_CONTACT_EMAIL`,
   `NUXT_PUBLIC_CONTACT_PHONE`, `NUXT_PUBLIC_CONTACT_LOCATION` (utilisées par Contact,
   Mentions légales, Politique de confidentialité)
