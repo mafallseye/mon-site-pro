@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "DIGISERVICE",
+    "name": "DIGISERVICES",
     "tagline": "Des sites web qui travaillent pour votre entreprise.",
     "subtitle": "Sites vitrines, e-commerce et applications web sur mesure."
   },
@@ -69,7 +69,7 @@
     },
     "project": {
       "title": "Réalisation",
-      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE.",
+      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICES.",
       "notFound": "Réalisation introuvable."
     },
     "process": {
@@ -110,7 +110,7 @@
     },
     "about": {
       "title": "À propos",
-      "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure.",
+      "description": "Découvrez DIGISERVICES et notre approche du développement web sur mesure.",
       "lead": "Je suis Maguette Fall SEYE, développeuse full stack basée à Dakar. Passionnée par l’innovation, j’architecture des solutions robustes et j’intègre l’IA pour transformer les processus complexes en expériences fluides.",
       "specialty": "Spécialiste Laravel, Vue.js et IA",
       "experienceTitle": "Parcours professionnel",
@@ -167,7 +167,7 @@
     },
     "contact": {
       "title": "Contact",
-      "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application.",
+      "description": "Contactez DIGISERVICES pour discuter de votre projet de site web ou d’application.",
       "intro": "Une question ou une idée de projet ? Envoyez-moi un message.",
       "formTitle": "Écrire un message",
       "name": "Nom",
@@ -186,10 +186,10 @@
     },
     "legal": {
       "title": "Mentions légales",
-      "description": "Informations sur l’éditeur, l’hébergement et la propriété intellectuelle du site DIGISERVICE.",
+      "description": "Informations sur l’éditeur, l’hébergement et la propriété intellectuelle du site DIGISERVICES.",
       "intro": "Les informations entre crochets restent à compléter ou à confirmer avant la mise en ligne.",
       "sections": [
-        { "title": "Éditeur du site", "text": "Nom légal : [À COMPLÉTER — nom et prénom ou dénomination sociale].\nNom commercial : DIGISERVICE.\nStatut juridique : [À COMPLÉTER — forme ou statut].\nAdresse du siège ou de l’activité : [À COMPLÉTER].\nNuméro d’immatriculation (RCCM, NINEA ou équivalent) : [À COMPLÉTER ou indiquer si non applicable].\nDirecteur ou directrice de la publication : [À COMPLÉTER].\nContact : [[contactEmail]]." },
+        { "title": "Éditeur du site", "text": "Nom légal : [À COMPLÉTER — nom et prénom ou dénomination sociale].\nNom commercial : DIGISERVICES.\nStatut juridique : [À COMPLÉTER — forme ou statut].\nAdresse du siège ou de l’activité : [À COMPLÉTER].\nNuméro d’immatriculation (RCCM, NINEA ou équivalent) : [À COMPLÉTER ou indiquer si non applicable].\nDirecteur ou directrice de la publication : [À COMPLÉTER].\nContact : [[contactEmail]]." },
         { "title": "Hébergement", "text": "Hébergeur effectif : [À COMPLÉTER — nom de l’entreprise, adresse postale et coordonnées de contact].\nLe projet prévoit un déploiement sur Vercel, mais l’hébergement effectif et les coordonnées contractuelles restent à confirmer." },
         { "title": "Propriété intellectuelle", "text": "Sauf mention contraire, les contenus originaux de ce site (textes, éléments graphiques et code) sont protégés par les règles applicables en matière de propriété intellectuelle. Toute reproduction ou réutilisation nécessite l’autorisation préalable du titulaire des droits. Les marques, contenus et projets de tiers restent la propriété de leurs titulaires respectifs." },
         { "title": "Contact", "text": "Pour toute question concernant le site ou ces mentions, contactez l’éditeur à l’adresse suivante : [[contactEmail]]." }
@@ -198,7 +198,7 @@
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "description": "Données recueillies par les formulaires DIGISERVICE, utilisation, conservation et droits des personnes.",
+      "description": "Données recueillies par les formulaires DIGISERVICES, utilisation, conservation et droits des personnes.",
       "intro": "Cette page décrit les traitements liés aux formulaires de contact et de demande de devis. Les éléments entre crochets sont à confirmer ou à compléter avant publication.",
       "sections": [
         { "title": "Responsable du traitement et contact", "text": "Responsable : [À COMPLÉTER — nom légal et statut de la personne ou structure responsable].\nAdresse : [À COMPLÉTER].\nPour toute demande relative à vos données, écrivez à [[contactEmail]]." },

@@ -1,4 +1,4 @@
-# DIGISERVICE — site professionnel
+# DIGISERVICES — site professionnel
 
 Site vitrine bilingue (FR/EN) de développeuse web : Nuxt 4, Tailwind CSS v4, @nuxtjs/i18n,
 Nuxt Content v3. Les formulaires de devis et de contact sont enregistrés dans **Supabase** puis
@@ -28,7 +28,7 @@ environnements *Production* et *Preview*). Ne jamais les commiter.
 |---|---|---|
 | `RESEND_API_KEY` | serveur (secret) | Clé API Resend |
 | `CONTACT_TO_EMAIL` | serveur | Adresse qui reçoit les demandes |
-| `CONTACT_FROM_EMAIL` | serveur | Expéditeur vérifié dans Resend (ex. `DIGISERVICE <contact@votre-domaine>`) |
+| `CONTACT_FROM_EMAIL` | serveur | Expéditeur vérifié dans Resend (ex. `DIGISERVICES <contact@votre-domaine>`) |
 | `NUXT_SUPABASE_URL` | serveur | URL du projet Supabase (`https://<ref>.supabase.co`) |
 | `NUXT_SUPABASE_SERVICE_ROLE_KEY` | serveur (**secret**) | Clé `service_role` (ou clé secrète) Supabase |
 | `NUXT_PUBLIC_SITE_URL` | public | URL canonique du site (ex. `https://www.votre-domaine.com`) |

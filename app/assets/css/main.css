@@ -6,7 +6,7 @@
 @import "@fontsource/fraunces/600.css";
 
 /*
- * Jetons de design DIGISERVICE « Émeraude & or » — SEUL endroit où sont déclarées
+ * Jetons de design DIGISERVICES « Émeraude & or » — SEUL endroit où sont déclarées
  * couleurs, polices, tailles, rayons, ombres et largeurs (voir docs/design.md).
  * Les couleurs, polices, tailles de texte, rayons et ombres natifs de Tailwind sont désactivés : seules
  * les classes issues de ces jetons existent (bg-primary, text-ink-muted, rounded-card…). L'échelle

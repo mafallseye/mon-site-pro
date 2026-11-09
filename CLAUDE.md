@@ -139,7 +139,7 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 - `app/error.vue` gère 404 et autres erreurs (il réinclut header/footer car il n'utilise pas le layout).
 
 ## Identité
-- Marque : DIGISERVICE
+- Marque : DIGISERVICES
 - Accroche : « Des sites web qui travaillent pour votre entreprise. »
 - Sous-titre : « Sites vitrines, e-commerce et applications web sur mesure. »
 - Palette « Émeraude & or » (pas de bleu ni de violet). Spécification complète, contrastes
@@ -170,12 +170,12 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
   or en ponctuation. Header clair (filet or), footer sombre. Navigation desktop à partir de 1280 px.
 
 ## Logo
-- Fichiers dans /public (wordmark vectorisé, viewBox 259×64) :
+- Fichiers dans /public (wordmark vectorisé, viewBox 277×64) :
   - logo.svg (fond clair : header, og:image) : carré émeraude #0B5D46, « D » blanc, point or,
-    DIGI #10231C / SERVICE #0B5D46
+    DIGI #10231C / SERVICES #0B5D46
   - logo-light.svg (fond sombre : footer) : carré crème #F7F4EC, « D » émeraude, point or cerclé
-    d'émeraude, DIGI #F7F4EC / SERVICE #E8A317
+    d'émeraude, DIGI #F7F4EC / SERVICES #E8A317
   - favicon.svg (carré + « D » + point or agrandi, lisible à 32 px) et favicon.ico (16/32/48)
-- Header : logo.svg ; footer sombre : logo-light.svg ; `<img width="259" height="64">`
+- Header : logo.svg ; footer sombre : logo-light.svg ; `<img width="277" height="64">`
 - favicon.svg et favicon.ico déclarés dans nuxt.config (app.head.link)
 - Garder la même construction (carré arrondi, « D » évidé, point d'accent) pour toute variante.

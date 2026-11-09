@@ -1,4 +1,4 @@
-# DIGISERVICE — Spécification de design (refonte « Émeraude & or »)
+# DIGISERVICES — Spécification de design (refonte « Émeraude & or »)
 
 > Périmètre : refonte **visuelle uniquement**. Contenu, routes, formulaires, SEO et i18n inchangés.
 > Aucun texte, chiffre, témoignage, logo client ni photo n'est ajouté. Les textes cités sont des clés de `i18n/locales/fr.json` (mêmes clés dans `en.json`) ou des champs des réalisations (`content/realisations/*.md`).
