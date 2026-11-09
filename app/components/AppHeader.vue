@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
   <header ref="headerRef" class="relative z-40 border-b-2 border-accent bg-bg" @focusout="onFocusOut">
     <div class="mx-auto flex max-w-content items-center justify-between gap-6 px-4 py-3 md:px-6 xl:px-8 xl:py-5">
       <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')" class="shrink-0 py-1" @click="closeMenu()">
-        <img src="/logo.svg" :alt="t('brand.name')" class="h-9 w-auto xl:h-10" width="259" height="64">
+        <img src="/logo.svg" :alt="t('brand.name')" class="h-9 w-auto xl:h-10" width="277" height="64">
       </NuxtLink>
 
       <nav :aria-label="t('navigation.mainLabel')" class="hidden items-center gap-7 xl:flex">

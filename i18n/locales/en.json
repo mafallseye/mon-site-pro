@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "DIGISERVICE",
+    "name": "DIGISERVICES",
     "tagline": "Websites that work for your business.",
     "subtitle": "Custom brochure websites, e-commerce stores and web applications."
   },
@@ -63,11 +63,13 @@
       "clientLabel": "Client",
       "sectorLabel": "Sector",
       "technologyLabel": "Technologies",
-      "imagePlaceholder": "Project image coming soon"
+      "imagePlaceholder": "Project image coming soon",
+      "screenshotDesktop": "Screenshot of the {title} website on desktop",
+      "screenshotMobile": "Screenshot of the {title} website on mobile"
     },
     "project": {
       "title": "Project",
-      "description": "Explore a web project delivered by DIGISERVICE.",
+      "description": "Explore a web project delivered by DIGISERVICES.",
       "notFound": "Project not found."
     },
     "process": {
@@ -106,10 +108,66 @@
       "placeholderDeadline": "For example: in the coming months; date to be confirmed",
       "placeholderDescription": "Tell me about your business, what you need and any features or content you have in mind."
     },
-    "about": { "title": "About", "description": "Meet DIGISERVICE and learn about this approach to custom web development." },
+    "about": {
+      "title": "About",
+      "description": "Meet DIGISERVICES and learn about this approach to custom web development.",
+      "lead": "I’m Maguette Fall SEYE, a full-stack developer based in Dakar. Driven by innovation, I architect robust solutions and integrate AI to turn complex processes into smooth experiences.",
+      "specialty": "Laravel, Vue.js and AI specialist",
+      "experienceTitle": "Professional background",
+      "experience": [
+        {
+          "period": "Dec. 2023 — present",
+          "role": "Full-stack developer",
+          "organization": "Embassy of Belgium in Senegal",
+          "text": "Maintaining and improving the R8TS platform. Working on systems interoperability and performance optimisation."
+        },
+        {
+          "period": "Sept. 2022 — present",
+          "role": "Innovative projects and freelance",
+          "organization": "SeyeGarage, OpenAI integration",
+          "text": "Designing SaaS architectures and integrating AI models to automate complex business processes."
+        },
+        {
+          "period": "Jan. 2022 — Aug. 2022",
+          "role": "Full-stack developer intern",
+          "organization": "Orange Digital Center",
+          "text": "Hands-on experience in agile projects and development of responsive web applications."
+        }
+      ],
+      "skillsTitle": "Technical expertise",
+      "skills": [
+        {
+          "title": "Back end",
+          "items": [
+            "PHP and Laravel (expert level)",
+            "REST API architecture",
+            "Inertia.js and MySQL"
+          ]
+        },
+        {
+          "title": "Front end",
+          "items": [
+            "Vue.js 3 (Composition API)",
+            "Tailwind CSS and Bootstrap",
+            "Responsive interfaces and UX"
+          ]
+        },
+        {
+          "title": "AI and innovation",
+          "items": [
+            "OpenAI API integration",
+            "Prompt engineering",
+            "Process automation"
+          ]
+        }
+      ],
+      "linksTitle": "Find me online",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
     "contact": {
       "title": "Contact",
-      "description": "Get in touch with DIGISERVICE to discuss a website or web application project.",
+      "description": "Get in touch with DIGISERVICES to discuss a website or web application project.",
       "intro": "Have a question or an idea for a project? Send me a message.",
       "formTitle": "Send a message",
       "name": "Name",
@@ -123,14 +181,15 @@
       "success": "Your message has been sent. Thank you — I’ll reply as soon as I can.",
       "received": "Your message has been received. No need to send it again — I’ll reply as soon as I can.",
       "detailsTitle": "Contact details",
+      "whatsapp": "Message me on WhatsApp",
       "missingDetails": "Direct contact details have not been configured yet. Please use the form to get in touch."
     },
     "legal": {
       "title": "Legal notice",
-      "description": "Information about the publisher, hosting and intellectual property of the DIGISERVICE website.",
+      "description": "Information about the publisher, hosting and intellectual property of the DIGISERVICES website.",
       "intro": "Items in square brackets must be completed or confirmed before publication.",
       "sections": [
-        { "title": "Website publisher", "text": "Legal name: [À COMPLÉTER — full name or registered business name].\nTrading name: DIGISERVICE.\nLegal status: [À COMPLÉTER — legal form or status].\nRegistered or business address: [À COMPLÉTER].\nRegistration number (RCCM, NINEA or equivalent): [À COMPLÉTER or state if not applicable].\nPublication director: [À COMPLÉTER].\nContact: [[contactEmail]]." },
+        { "title": "Website publisher", "text": "Legal name: [À COMPLÉTER — full name or registered business name].\nTrading name: DIGISERVICES.\nLegal status: [À COMPLÉTER — legal form or status].\nRegistered or business address: [À COMPLÉTER].\nRegistration number (RCCM, NINEA or equivalent): [À COMPLÉTER or state if not applicable].\nPublication director: [À COMPLÉTER].\nContact: [[contactEmail]]." },
         { "title": "Hosting", "text": "Actual hosting provider: [À COMPLÉTER — company name, postal address and contact details].\nDeployment to Vercel is planned for this project; the actual hosting arrangement and contractual details must be confirmed." },
         { "title": "Intellectual property", "text": "Unless stated otherwise, original website content (text, graphics and code) is protected by applicable intellectual property rules. Reproduction or reuse requires prior permission from the rights holder. Third-party brands, content and projects remain the property of their respective owners." },
         { "title": "Contact", "text": "For questions about this website or this notice, contact the publisher at: [[contactEmail]]." }
@@ -139,7 +198,7 @@
     },
     "privacy": {
       "title": "Privacy policy",
-      "description": "Data collected through DIGISERVICE forms, how it is used, retention and individual rights.",
+      "description": "Data collected through DIGISERVICES forms, how it is used, retention and individual rights.",
       "intro": "This page describes processing related to the contact and quote request forms. Items in square brackets must be confirmed or completed before publication.",
       "sections": [
         { "title": "Data controller and contact", "text": "Controller: [À COMPLÉTER — legal name and status of the responsible person or organisation].\nAddress: [À COMPLÉTER].\nFor requests concerning your data, email [[contactEmail]]." },

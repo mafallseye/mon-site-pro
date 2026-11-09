@@ -4,6 +4,7 @@ const localePath = useLocalePath()
 
 const footerLinks = useMainNavigation()
 
+const whatsappLink = useWhatsAppLink()
 const legalLinks = computed(() => [
   { label: t('footer.legal'), to: localePath('/mentions-legales') },
   { label: t('footer.privacy'), to: localePath('/politique-de-confidentialite') }
@@ -18,7 +19,7 @@ const year = new Date().getFullYear()
     <div class="mx-auto grid max-w-content gap-10 px-4 py-12 md:grid-cols-3 md:px-6 xl:px-8">
       <div>
         <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')" class="inline-block py-1">
-          <img src="/logo-light.svg" :alt="t('brand.name')" class="h-10 w-auto" width="259" height="64" loading="lazy" decoding="async">
+          <img src="/logo-light.svg" :alt="t('brand.name')" class="h-10 w-auto" width="277" height="64" loading="lazy" decoding="async">
         </NuxtLink>
         <p class="mt-4 max-w-sm text-small text-dark-ink-muted">{{ t('brand.tagline') }}</p>
       </div>
@@ -37,6 +38,7 @@ const year = new Date().getFullYear()
         <LanguageSwitcher variant="dark" class="mt-4" />
         <ul class="mt-4 flex flex-col">
           <li><NuxtLink :to="localePath('/contact')" :class="linkClass">{{ t('navigation.contact') }}</NuxtLink></li>
+          <li v-if="whatsappLink"><a :href="whatsappLink" target="_blank" rel="noopener noreferrer" :class="linkClass">{{ t('pages.contact.whatsapp') }}</a></li>
           <li v-for="item in legalLinks" :key="item.to">
             <NuxtLink :to="item.to" :class="linkClass">{{ item.label }}</NuxtLink>
           </li>

@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "DIGISERVICE",
+    "name": "DIGISERVICES",
     "tagline": "Des sites web qui travaillent pour votre entreprise.",
     "subtitle": "Sites vitrines, e-commerce et applications web sur mesure."
   },
@@ -63,11 +63,13 @@
       "clientLabel": "Client",
       "sectorLabel": "Secteur",
       "technologyLabel": "Technologies",
-      "imagePlaceholder": "Emplacement réservé à une image du projet"
+      "imagePlaceholder": "Emplacement réservé à une image du projet",
+      "screenshotDesktop": "Capture d’écran du site {title} sur ordinateur",
+      "screenshotMobile": "Capture d’écran du site {title} sur mobile"
     },
     "project": {
       "title": "Réalisation",
-      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICE.",
+      "description": "Découvrez les détails de cette réalisation web signée DIGISERVICES.",
       "notFound": "Réalisation introuvable."
     },
     "process": {
@@ -106,10 +108,66 @@
       "placeholderDeadline": "Ex. : dans les prochains mois, date à préciser",
       "placeholderDescription": "Présentez votre activité, votre besoin et les fonctionnalités ou contenus envisagés."
     },
-    "about": { "title": "À propos", "description": "Découvrez DIGISERVICE et notre approche du développement web sur mesure." },
+    "about": {
+      "title": "À propos",
+      "description": "Découvrez DIGISERVICES et notre approche du développement web sur mesure.",
+      "lead": "Je suis Maguette Fall SEYE, développeuse full stack basée à Dakar. Passionnée par l’innovation, j’architecture des solutions robustes et j’intègre l’IA pour transformer les processus complexes en expériences fluides.",
+      "specialty": "Spécialiste Laravel, Vue.js et IA",
+      "experienceTitle": "Parcours professionnel",
+      "experience": [
+        {
+          "period": "Déc. 2023 — aujourd’hui",
+          "role": "Développeuse full stack",
+          "organization": "Ambassade de Belgique au Sénégal",
+          "text": "Maintenance et amélioration de la plateforme R8TS. Travail sur l’interopérabilité des systèmes et l’optimisation des performances."
+        },
+        {
+          "period": "Sept. 2022 — aujourd’hui",
+          "role": "Projets innovants et freelance",
+          "organization": "SeyeGarage, intégration OpenAI",
+          "text": "Conception d’architectures SaaS et intégration de modèles d’IA pour automatiser des processus métier complexes."
+        },
+        {
+          "period": "Janv. 2022 — août 2022",
+          "role": "Stagiaire développeuse full stack",
+          "organization": "Orange Digital Center",
+          "text": "Immersion dans des projets agiles et développement d’applications web réactives."
+        }
+      ],
+      "skillsTitle": "Expertises techniques",
+      "skills": [
+        {
+          "title": "Back-end",
+          "items": [
+            "PHP et Laravel (niveau expert)",
+            "Architecture d’API REST",
+            "Inertia.js et MySQL"
+          ]
+        },
+        {
+          "title": "Front-end",
+          "items": [
+            "Vue.js 3 (Composition API)",
+            "Tailwind CSS et Bootstrap",
+            "Interfaces réactives et UX"
+          ]
+        },
+        {
+          "title": "IA et innovation",
+          "items": [
+            "Intégration de l’API OpenAI",
+            "Prompt engineering",
+            "Automatisation de processus"
+          ]
+        }
+      ],
+      "linksTitle": "Me retrouver en ligne",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
     "contact": {
       "title": "Contact",
-      "description": "Contactez DIGISERVICE pour discuter de votre projet de site web ou d’application.",
+      "description": "Contactez DIGISERVICES pour discuter de votre projet de site web ou d’application.",
       "intro": "Une question ou une idée de projet ? Envoyez-moi un message.",
       "formTitle": "Écrire un message",
       "name": "Nom",
@@ -123,14 +181,15 @@
       "success": "Votre message a bien été envoyé. Merci, je vous répondrai dès que possible.",
       "received": "Votre message a bien été reçu. Inutile de le renvoyer : je vous réponds dès que possible.",
       "detailsTitle": "Mes coordonnées",
+      "whatsapp": "Écrire sur WhatsApp",
       "missingDetails": "Les coordonnées directes ne sont pas encore configurées. Vous pouvez utiliser le formulaire pour me joindre."
     },
     "legal": {
       "title": "Mentions légales",
-      "description": "Informations sur l’éditeur, l’hébergement et la propriété intellectuelle du site DIGISERVICE.",
+      "description": "Informations sur l’éditeur, l’hébergement et la propriété intellectuelle du site DIGISERVICES.",
       "intro": "Les informations entre crochets restent à compléter ou à confirmer avant la mise en ligne.",
       "sections": [
-        { "title": "Éditeur du site", "text": "Nom légal : [À COMPLÉTER — nom et prénom ou dénomination sociale].\nNom commercial : DIGISERVICE.\nStatut juridique : [À COMPLÉTER — forme ou statut].\nAdresse du siège ou de l’activité : [À COMPLÉTER].\nNuméro d’immatriculation (RCCM, NINEA ou équivalent) : [À COMPLÉTER ou indiquer si non applicable].\nDirecteur ou directrice de la publication : [À COMPLÉTER].\nContact : [[contactEmail]]." },
+        { "title": "Éditeur du site", "text": "Nom légal : [À COMPLÉTER — nom et prénom ou dénomination sociale].\nNom commercial : DIGISERVICES.\nStatut juridique : [À COMPLÉTER — forme ou statut].\nAdresse du siège ou de l’activité : [À COMPLÉTER].\nNuméro d’immatriculation (RCCM, NINEA ou équivalent) : [À COMPLÉTER ou indiquer si non applicable].\nDirecteur ou directrice de la publication : [À COMPLÉTER].\nContact : [[contactEmail]]." },
         { "title": "Hébergement", "text": "Hébergeur effectif : [À COMPLÉTER — nom de l’entreprise, adresse postale et coordonnées de contact].\nLe projet prévoit un déploiement sur Vercel, mais l’hébergement effectif et les coordonnées contractuelles restent à confirmer." },
         { "title": "Propriété intellectuelle", "text": "Sauf mention contraire, les contenus originaux de ce site (textes, éléments graphiques et code) sont protégés par les règles applicables en matière de propriété intellectuelle. Toute reproduction ou réutilisation nécessite l’autorisation préalable du titulaire des droits. Les marques, contenus et projets de tiers restent la propriété de leurs titulaires respectifs." },
         { "title": "Contact", "text": "Pour toute question concernant le site ou ces mentions, contactez l’éditeur à l’adresse suivante : [[contactEmail]]." }
@@ -139,7 +198,7 @@
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "description": "Données recueillies par les formulaires DIGISERVICE, utilisation, conservation et droits des personnes.",
+      "description": "Données recueillies par les formulaires DIGISERVICES, utilisation, conservation et droits des personnes.",
       "intro": "Cette page décrit les traitements liés aux formulaires de contact et de demande de devis. Les éléments entre crochets sont à confirmer ou à compléter avant publication.",
       "sections": [
         { "title": "Responsable du traitement et contact", "text": "Responsable : [À COMPLÉTER — nom légal et statut de la personne ou structure responsable].\nAdresse : [À COMPLÉTER].\nPour toute demande relative à vos données, écrivez à [[contactEmail]]." },
