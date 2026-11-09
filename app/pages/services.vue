@@ -19,7 +19,7 @@ usePageSeo(
 		<PageHeader :title="t('pages.services.title')" :lead="t('pages.services.intro')" />
 
 		<section class="mx-auto grid max-w-content gap-6 px-4 pb-section-sm md:px-6 md:pb-section xl:grid-cols-3 xl:px-8">
-			<article v-for="(service, index) in services" :key="service.title" class="flex flex-col rounded-card border border-line bg-surface p-6 shadow-card md:mx-auto md:w-full md:max-w-prose-content md:p-8 xl:max-w-none">
+			<article v-for="(service, index) in services" :key="service.title" class="flex flex-col rounded-card border border-line bg-surface p-6 shadow-card md:w-full md:max-w-prose-content md:p-8 xl:max-w-none">
 				<StepBadge :index="index" />
 				<h2 class="mt-5 text-h2 text-primary">{{ service.title }}</h2>
 				<p class="mt-3 text-ink-muted">{{ service.summary }}</p>
