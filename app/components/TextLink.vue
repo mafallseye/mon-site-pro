@@ -14,8 +14,9 @@ withDefaults(defineProps<{
   icon: undefined
 })
 
-const linkClass = 'group inline-flex items-center gap-1.5 font-semibold text-primary underline decoration-primary decoration-2 underline-offset-4 transition-colors hover:text-primary-strong hover:decoration-accent'
+const linkClass = 'group inline-flex min-h-tap items-center gap-1.5 font-semibold text-primary underline decoration-primary decoration-2 underline-offset-4 transition-colors hover:text-primary-strong hover:decoration-accent'
 const iconClass = 'size-4 shrink-0 transition-transform motion-safe:group-hover:translate-x-0.5'
+const backIconClass = 'size-4 shrink-0 transition-transform motion-safe:group-hover:-translate-x-0.5'
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const iconClass = 'size-4 shrink-0 transition-transform motion-safe:group-hover:
     <AppIcon v-if="icon" :name="icon" :class="iconClass" />
   </a>
   <NuxtLink v-else :to="to" :class="linkClass">
-    <AppIcon v-if="icon === 'arrow-left'" name="arrow-left" :class="iconClass" />
+    <AppIcon v-if="icon === 'arrow-left'" name="arrow-left" :class="backIconClass" />
     <slot />
     <AppIcon v-if="icon && icon !== 'arrow-left'" :name="icon" :class="iconClass" />
   </NuxtLink>

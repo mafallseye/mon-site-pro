@@ -6,14 +6,7 @@ const isMenuOpen = ref(false)
 const headerRef = ref<HTMLElement>()
 const menuButtonRef = ref<HTMLButtonElement>()
 
-const navigation = computed(() => [
-  { label: t('navigation.home'), to: localePath('/') },
-  { label: t('navigation.services'), to: localePath('/services') },
-  { label: t('navigation.portfolio'), to: localePath('/realisations') },
-  { label: t('navigation.process'), to: localePath('/process') },
-  { label: t('navigation.about'), to: localePath('/a-propos') },
-  { label: t('navigation.contact'), to: localePath('/contact') }
-])
+const navigation = useMainNavigation()
 
 function closeMenu({ restoreFocus = false } = {}) {
   if (!isMenuOpen.value) return
@@ -23,6 +16,12 @@ function closeMenu({ restoreFocus = false } = {}) {
 
 function onKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') closeMenu({ restoreFocus: true })
+}
+
+/** Le focus clavier quitte le header : on ferme le menu pour qu'il ne masque pas l'élément focalisé. */
+function onFocusOut(event: FocusEvent) {
+  const next = event.relatedTarget as Node | null
+  if (next && headerRef.value && !headerRef.value.contains(next)) closeMenu()
 }
 
 function onPointerDown(event: PointerEvent) {
@@ -50,13 +49,13 @@ onBeforeUnmount(() => {
 <template>
   <a
     href="#main-content"
-    class="sr-only z-50 rounded-control bg-accent px-4 py-3 font-semibold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+    class="sr-only z-50 rounded-control bg-accent font-semibold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:px-4 focus:py-3"
   >
     {{ t('navigation.skipToContent') }}
   </a>
-  <header ref="headerRef" class="relative z-40 border-b-2 border-accent bg-bg">
+  <header ref="headerRef" class="relative z-40 border-b-2 border-accent bg-bg" @focusout="onFocusOut">
     <div class="mx-auto flex max-w-content items-center justify-between gap-6 px-4 py-3 md:px-6 xl:px-8 xl:py-5">
-      <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')" class="shrink-0">
+      <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')" class="shrink-0 py-1" @click="closeMenu()">
         <img src="/logo.svg" :alt="t('brand.name')" class="h-9 w-auto xl:h-10" width="259" height="64">
       </NuxtLink>
 
@@ -65,7 +64,7 @@ onBeforeUnmount(() => {
           v-for="item in navigation"
           :key="item.to"
           :to="item.to"
-          class="inline-flex min-h-tap items-center border-b-2 border-transparent text-small font-semibold text-ink transition-colors hover:text-primary-strong"
+          class="inline-flex min-h-tap min-w-tap items-center justify-center border-b-2 border-transparent text-small font-semibold text-ink transition-colors hover:border-accent hover:text-primary-strong"
           active-class="border-accent! text-primary!"
         >
           {{ item.label }}
@@ -101,12 +100,13 @@ onBeforeUnmount(() => {
           v-for="item in navigation"
           :key="item.to"
           :to="item.to"
-          class="flex min-h-control items-center rounded-control border-l-4 border-transparent px-3 font-semibold text-ink transition-colors hover:bg-primary-soft"
+          class="flex min-h-control items-center rounded-r-control border-l-4 border-transparent px-3 font-semibold text-ink transition-colors hover:bg-primary-soft"
           active-class="border-accent! text-primary!"
+          @click="closeMenu()"
         >
           {{ item.label }}
         </NuxtLink>
-        <AppButton :to="localePath('/tarifs-devis')" class="mt-2">{{ t('navigation.quote') }}</AppButton>
+        <AppButton :to="localePath('/tarifs-devis')" class="mt-2" @click="closeMenu()">{{ t('navigation.quote') }}</AppButton>
         <LanguageSwitcher class="mt-3 justify-center border-t border-line pt-3" />
       </div>
     </nav>

@@ -9,8 +9,8 @@ usePageSeo(
 <template>
 	<div>
 		<PageHeader :title="t('pages.quote.title')" :lead="t('pages.quote.intro')" />
-		<section class="mx-auto max-w-form px-4 pb-section-sm md:px-6 md:pb-section">
-			<QuoteRequestForm />
+		<section class="mx-auto max-w-content px-4 pb-section-sm md:px-6 md:pb-section xl:px-8">
+			<QuoteRequestForm class="max-w-form" />
 		</section>
 	</div>
 </template>

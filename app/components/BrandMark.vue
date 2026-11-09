@@ -1,7 +1,4 @@
-<script setup lang="ts">
-/** Composition décorative du monogramme (« D » crème sur émeraude, pastille et arcs or). Toujours aria-hidden. */
-</script>
-
+<!-- Composition décorative du monogramme (« D » crème sur émeraude, pastille et arcs or). Toujours aria-hidden. -->
 <template>
   <div aria-hidden="true" class="relative mx-auto aspect-square w-full">
     <svg viewBox="0 0 200 200" focusable="false" class="size-full">

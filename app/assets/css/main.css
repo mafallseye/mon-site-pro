@@ -8,8 +8,9 @@
 /*
  * Jetons de design DIGISERVICE « Émeraude & or » — SEUL endroit où sont déclarées
  * couleurs, polices, tailles, rayons, ombres et largeurs (voir docs/design.md).
- * Les couleurs, polices, tailles de texte, rayons et ombres natifs de Tailwind sont désactivés : seules les classes issues de
- * ces jetons existent (bg-primary, text-ink-muted, border-line-strong…).
+ * Les couleurs, polices, tailles de texte, rayons et ombres natifs de Tailwind sont désactivés : seules
+ * les classes issues de ces jetons existent (bg-primary, text-ink-muted, rounded-card…). L'échelle
+ * d'espacement, de largeurs (max-w-*), de z-index et d'opacité de Tailwind reste utilisée telle quelle.
  * Toute nouvelle valeur de design s'ajoute ici, jamais dans un composant.
  */
 @theme {
@@ -138,13 +139,24 @@
     font-weight: 600;
   }
 
-  /* Focus visible : émeraude en zone claire, or dans les zones sombres/émeraude (classe .zone-dark). */
-  :focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
+  /*
+   * Focus visible : émeraude en zone claire, or dans les zones sombres/émeraude (classe .zone-dark).
+   * La couleur est posée en permanence pour que transition-colors n'anime pas l'anneau au focus.
+   */
+  *,
+  ::before,
+  ::after {
+    outline-color: var(--color-focus);
   }
 
-  .zone-dark :focus-visible {
+  .zone-dark,
+  .zone-dark * {
     outline-color: var(--color-focus-dark);
+  }
+
+  :focus-visible {
+    outline-style: solid;
+    outline-width: 3px;
+    outline-offset: 2px;
   }
 }

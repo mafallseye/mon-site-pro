@@ -14,9 +14,10 @@ usePageSeo(
 <template>
 	<div>
 		<PageHeader :title="t('pages.process.title')" :lead="t('pages.process.intro')" />
-		<section class="mx-auto max-w-steps px-4 pb-section-sm md:px-6 md:pb-section">
+		<section class="mx-auto max-w-content px-4 pb-section-sm md:px-6 md:pb-section xl:px-8">
+			<div class="relative max-w-steps">
+			<span aria-hidden="true" class="absolute top-6 bottom-6 left-11 w-0.5 bg-accent md:left-13" />
 			<ol class="relative space-y-6">
-				<span aria-hidden="true" class="absolute top-6 bottom-6 left-11 w-0.5 bg-accent md:left-13" />
 				<li v-for="(step, index) in steps" :key="step.title" class="relative flex gap-5 rounded-card border border-line bg-surface p-6 shadow-card md:p-8">
 					<StepBadge :index="index" class="ring-4 ring-surface" />
 					<div>
@@ -25,6 +26,7 @@ usePageSeo(
 					</div>
 				</li>
 			</ol>
+			</div>
 		</section>
 	</div>
 </template>

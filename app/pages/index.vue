@@ -91,14 +91,16 @@ useHead({
 
   <section class="mx-auto max-w-content px-4 py-section-sm md:px-6 md:py-section xl:px-8">
     <SectionHeading :title="t('pages.home.processTitle')" :intro="t('pages.home.processIntro')" />
-    <ol class="relative mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+    <div class="relative mt-10">
       <span aria-hidden="true" class="absolute inset-x-6 top-5 hidden h-0.5 bg-accent xl:block" />
+      <ol class="relative grid gap-8 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
       <li v-for="(step, index) in processSteps" :key="step.title" class="relative">
         <StepBadge :index="index" class="ring-8 ring-bg" />
         <h3 class="mt-4 text-h3 font-semibold text-primary">{{ step.title }}</h3>
         <p class="mt-2 text-small text-ink-muted">{{ step.text }}</p>
       </li>
-    </ol>
+      </ol>
+    </div>
   </section>
 
   <section class="zone-dark bg-primary px-4 py-section-sm text-center text-on-primary md:px-6 md:py-section xl:px-8">
