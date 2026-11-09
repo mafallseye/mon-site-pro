@@ -28,7 +28,7 @@ const navigation = computed(() => [
   <header class="relative z-40 border-b border-slate-200 bg-white">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
       <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')" @click="isMenuOpen = false">
-        <img src="/logo.svg" :alt="t('brand.name')" class="h-10 w-auto" width="300" height="64">
+        <img src="/logo.svg" :alt="t('brand.name')" class="h-10 w-auto" width="259" height="64">
       </NuxtLink>
 
       <nav :aria-label="t('navigation.mainLabel')" class="hidden items-center gap-6 lg:flex">

@@ -54,7 +54,7 @@ useHead({
         </div>
       </div>
       <div aria-hidden="true" class="flex min-h-64 items-center justify-center rounded-3xl bg-surface p-8 sm:min-h-80">
-        <img src="/logo.svg" alt="" width="300" height="64" decoding="async" class="max-h-24 w-auto opacity-90 sm:max-h-32">
+        <img src="/logo.svg" alt="" width="259" height="64" decoding="async" class="max-h-24 w-auto opacity-90 sm:max-h-32">
       </div>
     </div>
   </section>

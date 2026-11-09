@@ -17,7 +17,7 @@ const footerLinks = computed(() => [
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3 lg:px-8">
       <div>
         <NuxtLink :to="localePath('/')" :aria-label="t('navigation.home')">
-          <img src="/logo-light.svg" :alt="t('brand.name')" class="h-10 w-auto" width="300" height="64" loading="lazy" decoding="async">
+          <img src="/logo-light.svg" :alt="t('brand.name')" class="h-10 w-auto" width="259" height="64" loading="lazy" decoding="async">
         </NuxtLink>
         <p class="mt-4 max-w-sm text-sm leading-6 text-slate-300">{{ t('brand.tagline') }}</p>
       </div>
