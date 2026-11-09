@@ -28,7 +28,7 @@ usePageSeo(
 
 		<div class="mx-auto max-w-content px-4 pb-section-sm md:px-6 md:pb-section xl:px-8">
 			<ImagePlaceholder wide class="rounded-card" />
-			<div class="mt-10 grid gap-10 xl:grid-cols-[minmax(0,1fr)_var(--container-aside)]">
+			<div class="mt-10 grid gap-10 xl:grid-cols-main-aside">
 				<div class="max-w-prose-content space-y-5 text-ink">
 					<ContentRenderer :value="project" />
 				</div>

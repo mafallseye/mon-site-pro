@@ -8,14 +8,17 @@
 /*
  * Jetons de design DIGISERVICE « Émeraude & or » — SEUL endroit où sont déclarées
  * couleurs, polices, tailles, rayons, ombres et largeurs (voir docs/design.md).
- * Les couleurs natives de Tailwind sont désactivées : seules les classes issues de
+ * Les couleurs, polices, tailles de texte, rayons et ombres natifs de Tailwind sont désactivés : seules les classes issues de
  * ces jetons existent (bg-primary, text-ink-muted, border-line-strong…).
  * Toute nouvelle valeur de design s'ajoute ici, jamais dans un composant.
  */
 @theme {
-  /* TODO(étape 6) : réactiver « --color-*: initial; » une fois toutes les classes migrées. */
-  /* Alias temporaire de l'ancien jeton, supprimé à l'étape 6. */
-  --color-primary-light: var(--color-primary);
+  /* Valeurs natives de Tailwind désactivées : seuls les jetons ci-dessous produisent des classes. */
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
 
   /* Zone claire */
   --color-bg: #F7F4EC;
@@ -98,6 +101,7 @@
   --container-aside: 20rem;
   --aspect-card: 16 / 10;
   --aspect-wide: 16 / 7;
+  --grid-template-columns-main-aside: minmax(0, 1fr) var(--container-aside);
   --min-width-page: 320px;
 }
 

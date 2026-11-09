@@ -17,7 +17,7 @@ usePageSeo(
 <template>
 	<div>
 		<PageHeader :title="t('pages.contact.title')" :lead="t('pages.contact.intro')" />
-		<section class="mx-auto grid max-w-content gap-8 px-4 pb-section-sm md:px-6 md:pb-section xl:grid-cols-[minmax(0,1fr)_var(--container-aside)] xl:px-8">
+		<section class="mx-auto grid max-w-content gap-8 px-4 pb-section-sm md:px-6 md:pb-section xl:grid-cols-main-aside xl:px-8">
 			<ContactMessageForm />
 			<aside class="zone-dark h-fit rounded-card bg-primary-strong p-6 text-on-primary md:p-8">
 				<h2 class="text-h3 font-display">{{ t('pages.contact.detailsTitle') }}</h2>
