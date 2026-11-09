@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { quoteSchema } from '../../shared/utils/form-schemas'
-import { budgetOptions, projectTypeOptions } from '../../shared/utils/form-options'
+import { quoteSchema } from '#shared/utils/form-schemas'
+import { budgetOptions, projectTypeOptions } from '#shared/utils/form-options'
 
 const { t } = useI18n()
 const localePath = useLocalePath()

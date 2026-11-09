@@ -75,6 +75,9 @@ dans `server/routes/sitemap.xml.get.ts`.
 ### Formulaires (devis et contact)
 Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` → `POST /api/contact`.
 - Schémas Zod dans `shared/utils/form-schemas.ts`, utilisés **côté client et côté serveur**.
+  Dans `app/`, les importer via l'alias `#shared/utils/...` (un import relatif `../../shared/...`
+  casse `npm run build` : Nuxt externalise `shared/` du build serveur Vite). `server/` garde ses
+  imports relatifs.
   Les champs texte sont normalisés (NFC, suppression des caractères invisibles, espaces
   compactés). Ne pas restreindre les caractères : apostrophes, accents, guillemets doivent passer.
 - Options des selects (type de projet, budget en FCFA) dans `shared/utils/form-options.ts` ;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { contactSchema } from '../../shared/utils/form-schemas'
+import { contactSchema } from '#shared/utils/form-schemas'
 
 const { t } = useI18n()
 const { form, status, fieldErrors, errorMessage, clearFieldError, submitForm } = useFormSubmission({
