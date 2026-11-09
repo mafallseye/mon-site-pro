@@ -16,22 +16,17 @@ usePageSeo(
 
 <template>
 	<div>
-		<section class="bg-white">
-			<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-				<h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl">{{ t('pages.contact.title') }}</h1>
-				<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">{{ t('pages.contact.intro') }}</p>
-			</div>
-		</section>
-		<section class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-8">
+		<PageHeader :title="t('pages.contact.title')" :lead="t('pages.contact.intro')" />
+		<section class="mx-auto grid max-w-content gap-8 px-4 pb-section-sm md:px-6 md:pb-section xl:grid-cols-main-aside xl:px-8">
 			<ContactMessageForm />
-			<aside class="h-fit rounded-2xl bg-primary p-6 text-white">
-				<h2 class="text-xl font-bold">{{ t('pages.contact.detailsTitle') }}</h2>
-				<ul v-if="hasContactDetails" class="mt-5 space-y-4 text-sm leading-6 text-slate-200">
-					<li v-if="contactDetails.email"><a class="underline decoration-accent underline-offset-4" :href="`mailto:${contactDetails.email}`">{{ contactDetails.email }}</a></li>
-					<li v-if="contactDetails.phone"><a class="underline decoration-accent underline-offset-4" :href="`tel:${contactDetails.phone.replace(/\\s/g, '')}`">{{ contactDetails.phone }}</a></li>
-					<li v-if="contactDetails.location">{{ contactDetails.location }}</li>
+			<aside class="zone-dark h-fit rounded-card bg-primary-strong p-6 text-on-primary md:p-8">
+				<h2 class="text-h3 font-display">{{ t('pages.contact.detailsTitle') }}</h2>
+				<ul v-if="hasContactDetails" class="mt-5 space-y-4 text-small">
+					<li v-if="contactDetails.email"><a class="break-all underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent" :href="`mailto:${contactDetails.email}`">{{ contactDetails.email }}</a></li>
+					<li v-if="contactDetails.phone"><a class="underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent" :href="`tel:${contactDetails.phone.replace(/\s/g, '')}`">{{ contactDetails.phone }}</a></li>
+					<li v-if="contactDetails.location" class="text-on-primary-muted">{{ contactDetails.location }}</li>
 				</ul>
-				<p v-else class="mt-4 text-sm leading-6 text-slate-200">{{ t('pages.contact.missingDetails') }}</p>
+				<p v-else class="mt-4 text-small text-on-primary-muted">{{ t('pages.contact.missingDetails') }}</p>
 			</aside>
 		</section>
 	</div>

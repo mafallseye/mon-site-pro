@@ -1,122 +1,30 @@
 <script setup lang="ts">
-import { contactSchema } from '../../shared/utils/form-schemas'
-import type { ContactPayload } from '../../shared/utils/form-schemas'
+import { contactSchema } from '#shared/utils/form-schemas'
 
-const { t, locale } = useI18n()
-const form = reactive({ name: '', email: '', message: '', contact_pref_hp: '' })
-const formStartedAt = ref<number>()
-const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
-const fieldErrors = reactive<Record<string, string>>({})
-const errorMessage = ref('')
-
-onMounted(() => {
-  formStartedAt.value = performance.now()
+const { t } = useI18n()
+const { form, status, fieldErrors, errorMessage, clearFieldError, submitForm } = useFormSubmission({
+  schema: contactSchema,
+  endpoint: '/api/contact',
+  initialValues: () => ({ name: '', email: '', message: '', contact_pref_hp: '' }),
+  longTextField: 'message'
 })
-
-function clearFieldError(field: string) {
-  delete fieldErrors[field]
-  errorMessage.value = ''
-  if (status.value === 'error') status.value = 'idle'
-}
-
-function setValidationErrors(issues: Array<{ path: PropertyKey[], code: string }>) {
-  for (const issue of issues) {
-    const field = String(issue.path[0] || '')
-    if (!field || field === 'contact_pref_hp' || field === 'fillDurationMs') continue
-    const key = issue.code === 'invalid_format'
-      ? 'email'
-      : issue.code === 'too_small' && field === 'message'
-        ? 'tooShort'
-        : issue.code === 'invalid_type' || issue.code === 'too_small'
-          ? 'required'
-          : 'invalid'
-    fieldErrors[field] = t(`forms.errors.${key}`)
-  }
-}
-
-async function submitForm() {
-  errorMessage.value = ''
-  for (const key of Object.keys(fieldErrors)) delete fieldErrors[key]
-
-  const fillDurationMs = formStartedAt.value === undefined
-    ? undefined
-    : performance.now() - formStartedAt.value
-  const parsed = contactSchema.safeParse({ ...form, language: locale.value, fillDurationMs })
-  if (!parsed.success) {
-    setValidationErrors(parsed.error.issues)
-    status.value = 'error'
-    errorMessage.value = t('forms.errors.invalid')
-    await nextTick()
-    document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
-    return
-  }
-
-  status.value = 'loading'
-  try {
-    await $fetch('/api/contact', { method: 'POST', body: parsed.data as ContactPayload })
-    status.value = 'success'
-    Object.assign(form, { name: '', email: '', message: '', contact_pref_hp: '' })
-    formStartedAt.value = performance.now()
-  } catch (error) {
-    const response = error as {
-      data?: {
-        data?: { code?: string, fieldErrors?: Record<string, string[]> }
-        code?: string
-        fieldErrors?: Record<string, string[]>
-      }
-    }
-    const apiError = response.data?.data || response.data
-    if (apiError?.fieldErrors) {
-      for (const [field, messages] of Object.entries(apiError.fieldErrors)) {
-        if (field === 'email') fieldErrors[field] = t('forms.errors.email')
-        else if (field !== 'contact_pref_hp' && field !== 'fillDurationMs' && messages.length) fieldErrors[field] = t('forms.errors.invalid')
-      }
-    }
-    errorMessage.value = apiError?.code === 'RATE_LIMITED'
-      ? t('forms.errors.rateLimited')
-      : apiError?.code === 'MAIL_NOT_CONFIGURED' || apiError?.code === 'MAIL_DELIVERY_FAILED'
-        ? t('forms.errors.unavailable')
-        : apiError?.code === 'VALIDATION_ERROR'
-          ? t('forms.errors.invalid')
-          : t('forms.errors.sendFailed')
-    status.value = 'error'
-  }
-}
 </script>
 
 <template>
-  <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-    <h2 class="text-2xl font-bold text-primary">{{ t('pages.contact.formTitle') }}</h2>
+  <section class="rounded-card border border-line bg-surface p-6 shadow-card md:p-8">
+    <h2 class="text-h2 text-primary">{{ t('pages.contact.formTitle') }}</h2>
     <form class="mt-6 space-y-5" :aria-busy="status === 'loading'" novalidate @submit.prevent="submitForm">
-      <div class="pointer-events-none h-px w-px overflow-hidden" style="position: absolute; left: -10000px;" aria-hidden="true" inert>
-        <label for="contact-contact-pref-hp" aria-hidden="true">{{ t('forms.honeypotLabel') }}</label>
-        <input id="contact-contact-pref-hp" v-model="form.contact_pref_hp" type="text" name="contact_pref_hp" tabindex="-1" aria-hidden="true" autocomplete="off">
-      </div>
+      <FormHoneypot id="contact-contact-pref-hp" v-model="form.contact_pref_hp" />
 
-      <div>
-        <label for="contact-name" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.contact.name') }} <span aria-hidden="true">*</span></label>
-        <input id="contact-name" v-model="form.name" name="name" autocomplete="name" required maxlength="120" :aria-invalid="Boolean(fieldErrors.name)" :aria-describedby="fieldErrors.name ? 'contact-name-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.contact.placeholderName')" @input="clearFieldError('name')">
-        <p v-if="fieldErrors.name" id="contact-name-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.name }}</p>
-      </div>
+      <FormField id="contact-name" v-model="form.name" :label="t('pages.contact.name')" required :error="fieldErrors.name" name="name" autocomplete="name" maxlength="120" :placeholder="t('pages.contact.placeholderName')" @input="clearFieldError('name')" />
+      <FormField id="contact-email" v-model="form.email" :label="t('pages.contact.email')" required :error="fieldErrors.email" name="email" type="email" autocomplete="email" maxlength="254" :placeholder="t('pages.contact.placeholderEmail')" @input="clearFieldError('email')" />
+      <FormField id="contact-message" v-model="form.message" as="textarea" :label="t('pages.contact.message')" required :error="fieldErrors.message" name="message" minlength="10" maxlength="5000" rows="6" :placeholder="t('pages.contact.placeholderMessage')" @input="clearFieldError('message')" />
 
-      <div>
-        <label for="contact-email" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.contact.email') }} <span aria-hidden="true">*</span></label>
-        <input id="contact-email" v-model="form.email" name="email" type="email" autocomplete="email" required maxlength="254" :aria-invalid="Boolean(fieldErrors.email)" :aria-describedby="fieldErrors.email ? 'contact-email-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.contact.placeholderEmail')" @input="clearFieldError('email')">
-        <p v-if="fieldErrors.email" id="contact-email-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.email }}</p>
-      </div>
-
-      <div>
-        <label for="contact-message" class="mb-1.5 block text-sm font-semibold text-ink">{{ t('pages.contact.message') }} <span aria-hidden="true">*</span></label>
-        <textarea id="contact-message" v-model="form.message" name="message" required minlength="10" maxlength="5000" rows="6" :aria-invalid="Boolean(fieldErrors.message)" :aria-describedby="fieldErrors.message ? 'contact-message-error' : undefined" class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 text-ink shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15" :placeholder="t('pages.contact.placeholderMessage')" @input="clearFieldError('message')" />
-        <p v-if="fieldErrors.message" id="contact-message-error" class="mt-1.5 text-sm text-red-700">{{ fieldErrors.message }}</p>
-      </div>
-
-      <p v-if="errorMessage" role="alert" class="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">{{ errorMessage }}</p>
-      <p v-if="status === 'success'" role="status" aria-live="polite" class="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">{{ t('pages.contact.success') }}</p>
-      <button type="submit" :disabled="status === 'loading'" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-accent px-6 py-3 font-bold text-primary transition hover:bg-amber-400 focus-visible:outline-offset-4 disabled:cursor-wait disabled:opacity-60 sm:w-auto">
-        <span v-if="status === 'loading'">{{ t('pages.contact.sending') }}</span>
-        <span v-else>{{ t('pages.contact.submit') }}</span>
-      </button>
+      <FormAlert v-if="errorMessage" tone="error">{{ errorMessage }}</FormAlert>
+      <FormAlert v-if="status === 'success'" tone="success">{{ t('pages.contact.success') }}</FormAlert>
+      <AppButton type="submit" block :disabled="status === 'loading'">
+        {{ status === 'loading' ? t('pages.contact.sending') : t('pages.contact.submit') }}
+      </AppButton>
     </form>
   </section>
 </template>
