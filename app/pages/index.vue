@@ -16,7 +16,7 @@ const processSteps = computed(() => [0, 1, 2, 3].map(index => ({
   text: t(`homeProcess.${index}.text`)
 })))
 
-const { canonicalUrl, imageUrl } = usePageSeo(
+const { canonicalUrl, logoUrl } = usePageSeo(
   () => `${t('pages.home.heroTitle')} | ${t('brand.name')}`,
   () => t('pages.home.description')
 )
@@ -31,7 +31,7 @@ useHead({
       name: t('brand.name'),
       description: t('pages.home.description'),
       url: canonicalUrl.value,
-      logo: imageUrl.value,
+      logo: logoUrl.value,
       serviceType: t('structuredData.serviceType'),
       areaServed: t('structuredData.areaServed')
     }))
