@@ -60,11 +60,15 @@ dans `server/routes/sitemap.xml.get.ts`.
 
 ### SEO
 - `app/composables/usePageSeo.ts` centralise title/description/og/twitter, l'URL
-  canonique, les `hreflang` fr/en/x-default et `<html lang>`. og:image = `/logo.svg`.
+  canonique, les `hreflang` fr/en/x-default et `<html lang>`. og:image = `/og-image.png`
+  (PNG 1200×630, les réseaux sociaux n'affichent pas les SVG) ; `logoUrl` (`/logo.svg`) sert au JSON-LD.
+- Balise `google-site-verification` émise si `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION` est renseignée.
 - L'URL de base vient de `NUXT_PUBLIC_SITE_URL` (sinon l'origine de la requête).
 - La page d'accueil ajoute en plus des données structurées JSON-LD via `useHead`.
 - `server/routes/sitemap.xml.get.ts` génère le sitemap (pages statiques + réalisations FR,
   avec alternatives EN).
+- `server/routes/robots.txt.get.ts` génère `robots.txt` avec la ligne `Sitemap:` (même origine
+  que le sitemap) ; pas de `public/robots.txt`.
 
 ### Réalisations (Nuxt Content)
 - Schéma dans `content.config.ts` (collection `realisations`) : `slug`, `language` (fr|en),
@@ -114,7 +118,8 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 - Serveur (secrets) : `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`
 - Serveur, runtimeConfig PRIVÉ : `NUXT_SUPABASE_URL`, `NUXT_SUPABASE_SERVICE_ROLE_KEY`
   (`supabaseUrl` / `supabaseServiceRoleKey`, lus avec `useRuntimeConfig(event)` ; jamais dans `public`)
-- Publiques (`runtimeConfig.public`) : `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_CONTACT_EMAIL`,
+- Publiques (`runtimeConfig.public`) : `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+  (code Search Console, facultatif), `NUXT_PUBLIC_CONTACT_EMAIL`,
   `NUXT_PUBLIC_CONTACT_PHONE`, `NUXT_PUBLIC_CONTACT_LOCATION` (utilisées par Contact,
   Mentions légales, Politique de confidentialité), `NUXT_PUBLIC_CONTACT_WHATSAPP`
   (lien wa.me via `useWhatsAppLink()`, page Contact et footer)
@@ -173,7 +178,7 @@ Flux : `QuoteRequestForm.vue` → `POST /api/devis`, `ContactMessageForm.vue` �
 
 ## Logo
 - Fichiers dans /public (wordmark vectorisé, viewBox 277×64) :
-  - logo.svg (fond clair : header, og:image) : carré émeraude #0B5D46, « D » blanc, point or,
+  - logo.svg (fond clair : header, JSON-LD) : carré émeraude #0B5D46, « D » blanc, point or,
     DIGI #10231C / SERVICES #0B5D46
   - logo-light.svg (fond sombre : footer) : carré crème #F7F4EC, « D » émeraude, point or cerclé
     d'émeraude, DIGI #F7F4EC / SERVICES #E8A317

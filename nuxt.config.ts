@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     supabaseServiceRoleKey: '',
     public: {
       siteUrl: '',
+      googleSiteVerification: '',
       contactEmail: '',
       contactPhone: '',
       contactLocation: '',

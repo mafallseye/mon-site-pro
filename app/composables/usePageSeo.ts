@@ -13,7 +13,9 @@ export function usePageSeo(title: MaybeRefOrGetter<string>, description: MaybeRe
   const englishPath = computed(() => unlocalizedPath.value === '/' ? '/en' : `/en${unlocalizedPath.value}`)
   const englishUrl = computed(() => new URL(englishPath.value, `${baseUrl.value}/`).href)
   const canonicalUrl = computed(() => locale.value === 'en' ? englishUrl.value : frenchUrl.value)
-  const imageUrl = computed(() => new URL('/logo.svg', `${baseUrl.value}/`).href)
+  // og:image en PNG 1200×630 : LinkedIn, Facebook et WhatsApp n'affichent pas les SVG.
+  const imageUrl = computed(() => new URL('/og-image.png', `${baseUrl.value}/`).href)
+  const logoUrl = computed(() => new URL('/logo.svg', `${baseUrl.value}/`).href)
 
   useSeoMeta({
     title: () => pageTitle.value,
@@ -24,7 +26,11 @@ export function usePageSeo(title: MaybeRefOrGetter<string>, description: MaybeRe
     ogType: 'website',
     ogLocale: () => locale.value === 'en' ? 'en_US' : 'fr_FR',
     ogImage: () => imageUrl.value,
-    twitterCard: 'summary_large_image'
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterCard: 'summary_large_image',
+    // Vérification Google Search Console : balise absente tant que la variable est vide.
+    googleSiteVerification: () => config.public.googleSiteVerification || undefined
   })
 
   useHead({
@@ -37,5 +43,5 @@ export function usePageSeo(title: MaybeRefOrGetter<string>, description: MaybeRe
     ]
   })
 
-  return { canonicalUrl, baseUrl, imageUrl }
+  return { canonicalUrl, baseUrl, imageUrl, logoUrl }
 }
