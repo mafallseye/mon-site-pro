@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.png" alt="DIGISERVICES — Site vitrine bilingue FR/EN avec formulaires de devis et de contact" width="100%"></p>
+
 # DIGISERVICES — site professionnel
 
 Site vitrine bilingue (FR/EN) de développeuse web : Nuxt 4, Tailwind CSS v4, @nuxtjs/i18n,
@@ -5,6 +7,14 @@ Nuxt Content v3. Les formulaires de devis et de contact sont enregistrés dans *
 notifiés par email via **Resend**. Déploiement sur **Vercel**.
 
 Conventions de code, design et architecture : voir [`CLAUDE.md`](CLAUDE.md) et [`docs/design.md`](docs/design.md).
+
+## Aperçu
+
+<p align="center"><img src="docs/screenshots/accueil.jpg" alt="Page d'accueil" width="85%"><br><em>Page d'accueil</em></p>
+
+<p align="center"><img src="docs/screenshots/services.jpg" alt="Page Services" width="85%"><br><em>Page Services</em></p>
+
+<p align="center"><img src="docs/screenshots/devis.jpg" alt="Formulaire de devis" width="85%"><br><em>Formulaire de devis</em></p>
 
 ## Prérequis
 
